@@ -12,7 +12,7 @@ public class EstanciaProgramadaRepository {
     private IDataAccess<EstanciaProgramada> dataAccess;
     
     public EstanciaProgramadaRepository() {
-        this.dataAccess = new JsonRepository<>("estanciasProgramadas.json", EstanciaProgramada.class);
+        this.dataAccess = new JsonRepository<>("Data/estanciasProgramadas.json", EstanciaProgramada.class);
     }
     
     // Constructor for dependency injection

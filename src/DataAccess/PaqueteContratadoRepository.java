@@ -12,7 +12,7 @@ public class PaqueteContratadoRepository {
     private IDataAccess<PaqueteContratado> dataAccess;
     
     public PaqueteContratadoRepository() {
-        this.dataAccess = new JsonRepository<>("paquetesContratados.json", PaqueteContratado.class);
+        this.dataAccess = new JsonRepository<>("Data/paquetesContratados.json", PaqueteContratado.class);
     }
     
     // Constructor for dependency injection

@@ -12,7 +12,7 @@ public class ServicioTransporteRepository {
     private IDataAccess<ServicioTransporte> dataAccess;
     
     public ServicioTransporteRepository() {
-        this.dataAccess = new JsonRepository<>("serviciosTransporte.json", ServicioTransporte.class);
+        this.dataAccess = new JsonRepository<>("Data/serviciosTransporte.json", ServicioTransporte.class);
     }
     
     // Constructor for dependency injection

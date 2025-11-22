@@ -12,7 +12,7 @@ public class MunicipioRepository {
     private IDataAccess<Municipio> dataAccess;
     
     public MunicipioRepository() {
-        this.dataAccess = new JsonRepository<>("municipios.json", Municipio.class);
+        this.dataAccess = new JsonRepository<>("Data/municipios.json", Municipio.class);
     }
     
     // Constructor for dependency injection

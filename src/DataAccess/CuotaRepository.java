@@ -12,7 +12,7 @@ public class CuotaRepository {
     private IDataAccess<Cuota> dataAccess;
     
     public CuotaRepository() {
-        this.dataAccess = new JsonRepository<>("cuotas.json", Cuota.class);
+        this.dataAccess = new JsonRepository<>("Data/cuotas.json", Cuota.class);
     }
     
     // Constructor for dependency injection

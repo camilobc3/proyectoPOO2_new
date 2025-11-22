@@ -12,7 +12,7 @@ public class AerolineaRepository {
     private IDataAccess<Aerolinea> dataAccess;
     
     public AerolineaRepository() {
-        this.dataAccess = new JsonRepository<>("aerolineas.json", Aerolinea.class);
+        this.dataAccess = new JsonRepository<>("Data/aerolineas.json", Aerolinea.class);
     }
     
     // Constructor for dependency injection

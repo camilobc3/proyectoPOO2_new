@@ -12,7 +12,7 @@ public class TrayectoRepository {
     private IDataAccess<Trayecto> dataAccess;
     
     public TrayectoRepository() {
-        this.dataAccess = new JsonRepository<>("trayectos.json", Trayecto.class);
+        this.dataAccess = new JsonRepository<>("Data/trayectos.json", Trayecto.class);
     }
     
     // Constructor for dependency injection

@@ -12,7 +12,7 @@ public class HotelRepository {
     private IDataAccess<Hotel> dataAccess;
     
     public HotelRepository() {
-        this.dataAccess = new JsonRepository<>("hoteles.json", Hotel.class);
+        this.dataAccess = new JsonRepository<>("Data/hoteles.json", Hotel.class);
     }
     
     // Constructor for dependency injection

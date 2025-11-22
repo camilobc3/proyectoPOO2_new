@@ -12,7 +12,7 @@ public class ItinerarioTransporteRepository {
     private IDataAccess<ItinerarioTransporte> dataAccess;
     
     public ItinerarioTransporteRepository() {
-        this.dataAccess = new JsonRepository<>("itinerariosTransporte.json", ItinerarioTransporte.class);
+        this.dataAccess = new JsonRepository<>("Data/itinerariosTransporte.json", ItinerarioTransporte.class);
     }
     
     // Constructor for dependency injection

@@ -12,7 +12,7 @@ public class GuiaRepository {
     private IDataAccess<Guia> dataAccess;
     
     public GuiaRepository() {
-        this.dataAccess = new JsonRepository<>("guias.json", Guia.class);
+        this.dataAccess = new JsonRepository<>("Data/guias.json", Guia.class);
     }
     
     // Constructor for dependency injection
