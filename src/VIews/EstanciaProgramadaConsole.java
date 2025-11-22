@@ -63,7 +63,6 @@ public class EstanciaProgramadaConsole {
     private void addEstanciaProgramada() {
         System.out.println("\n--- AGREGAR NUEVA ESTANCIA PROGRAMADA ---");
         System.out.print("Ingrese el ID de la habitación: ");
-        scanner.nextLine();
         int habitacionId = Integer.parseInt(scanner.nextLine());
 
         System.out.print("Ingrese el ID del usuario: ");
@@ -92,7 +91,6 @@ public class EstanciaProgramadaConsole {
             " - Usuario ID: " + estancia.getItinerarioTransporteId());
         
         System.out.print("Ingrese nuevo ID de habitación (presione Enter para mantener el actual): ");
-        scanner.nextLine();
         String habitacionIdInput = scanner.nextLine();
         Integer habitacionId = habitacionIdInput.isEmpty() ? null : Integer.parseInt(habitacionIdInput);
 

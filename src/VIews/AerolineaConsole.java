@@ -62,7 +62,6 @@ public class AerolineaConsole {
     private void addAerolinea() {
         System.out.println("\n--- AGREGAR NUEVA AEROLÍNEA ---");
         System.out.print("Ingrese el nombre de la aerolínea: ");
-        scanner.nextLine();
         String nombre = scanner.nextLine();
 
         boolean success = aerolineaController.addAerolinea(nombre);
@@ -86,7 +85,6 @@ public class AerolineaConsole {
 
         System.out.println("Datos actuales: ID: " + aerolinea.getId() + " - Nombre: " + aerolinea.getNombre());
         System.out.print("Ingrese nuevo nombre (presione Enter para mantener el actual): ");
-        scanner.nextLine();
         String nombre = scanner.nextLine();
 
         boolean success = aerolineaController.updateAerolinea(id, nombre.isEmpty() ? null : nombre);

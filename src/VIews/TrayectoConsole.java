@@ -63,7 +63,6 @@ public class TrayectoConsole {
     private void addTrayecto() {
         System.out.println("\n--- AGREGAR NUEVO TRAYECTO ---");
         System.out.print("Ingrese el costo: ");
-        scanner.nextLine();
         String costoInput = scanner.nextLine();
         Double costo = costoInput.isEmpty() ? null : Double.parseDouble(costoInput);
 
@@ -94,7 +93,6 @@ public class TrayectoConsole {
             (trayecto.getMunicipioId() != null ? " - Municipio ID: " + trayecto.getMunicipioId() : ""));
         
         System.out.print("Ingrese nuevo costo (presione Enter para mantener el actual): ");
-        scanner.nextLine();
         String costoInput = scanner.nextLine();
         Double costo = costoInput.isEmpty() ? null : Double.parseDouble(costoInput);
 

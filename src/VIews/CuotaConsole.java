@@ -63,7 +63,6 @@ public class CuotaConsole {
     private void addCuota() {
         System.out.println("\n--- AGREGAR NUEVA CUOTA ---");
         System.out.print("Ingrese el monto: ");
-        scanner.nextLine();
         double monto = Double.parseDouble(scanner.nextLine());
 
         System.out.print("Ingrese el ID del viaje (opcional, presione Enter para omitir): ");
@@ -93,7 +92,6 @@ public class CuotaConsole {
             (cuota.getViajeId() != null ? " - Viaje ID: " + cuota.getViajeId() : ""));
         
         System.out.print("Ingrese nuevo monto (presione Enter para mantener el actual): ");
-        scanner.nextLine();
         String montoInput = scanner.nextLine();
         Double monto = montoInput.isEmpty() ? null : Double.parseDouble(montoInput);
 

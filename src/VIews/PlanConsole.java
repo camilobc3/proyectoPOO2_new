@@ -62,7 +62,6 @@ public class PlanConsole {
     private void addPlan() {
         System.out.println("\n--- AGREGAR NUEVO PLAN ---");
         System.out.print("Ingrese el nombre del plan: ");
-        scanner.nextLine();
         String nombre = scanner.nextLine();
 
         boolean success = planController.addPlan(nombre);
@@ -86,7 +85,6 @@ public class PlanConsole {
 
         System.out.println("Datos actuales: ID: " + plan.getId() + " - Nombre: " + plan.getNombre());
         System.out.print("Ingrese nuevo nombre (presione Enter para mantener el actual): ");
-        scanner.nextLine();
         String nombre = scanner.nextLine();
 
         boolean success = planController.updatePlan(id, nombre.isEmpty() ? null : nombre);

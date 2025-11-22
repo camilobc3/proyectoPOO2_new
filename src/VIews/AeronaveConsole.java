@@ -63,7 +63,6 @@ public class AeronaveConsole {
     private void addAeronave() {
         System.out.println("\n--- AGREGAR NUEVA AERONAVE ---");
         System.out.print("Ingrese la marca del GPS: ");
-        scanner.nextLine();
         String marcaGps = scanner.nextLine();
 
         System.out.print("Ingrese el ID de la aerolínea (opcional, presione Enter para omitir): ");
@@ -93,7 +92,6 @@ public class AeronaveConsole {
             (aeronave.getAerolineaId() != null ? " - Aerolínea ID: " + aeronave.getAerolineaId() : ""));
         
         System.out.print("Ingrese nueva marca de GPS (presione Enter para mantener la actual): ");
-        scanner.nextLine();
         String marcaGps = scanner.nextLine();
 
         System.out.print("Ingrese nuevo ID de aerolínea (presione Enter para mantener el actual): ");

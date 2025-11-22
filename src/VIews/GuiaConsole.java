@@ -63,7 +63,6 @@ public class GuiaConsole {
     private void addGuia() {
         System.out.println("\n--- AGREGAR NUEVO GUÍA ---");
         System.out.print("Ingrese el nombre: ");
-        scanner.nextLine();
         String nombre = scanner.nextLine();
 
         System.out.print("Ingrese el teléfono: ");
@@ -95,7 +94,6 @@ public class GuiaConsole {
             " - Teléfono: " + guia.getTelefono() + " - Correo: " + guia.getCorreo());
         
         System.out.print("Ingrese nuevo nombre (presione Enter para mantener el actual): ");
-        scanner.nextLine();
         String nombre = scanner.nextLine();
 
         System.out.print("Ingrese nuevo teléfono (presione Enter para mantener el actual): ");

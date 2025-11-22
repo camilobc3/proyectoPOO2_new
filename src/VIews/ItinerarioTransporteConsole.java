@@ -63,7 +63,6 @@ public class ItinerarioTransporteConsole {
     private void addItinerarioTransporte() {
         System.out.println("\n--- AGREGAR NUEVO ITINERARIO DE TRANSPORTE ---");
         System.out.print("Ingrese el orden: ");
-        scanner.nextLine();
         int orden = Integer.parseInt(scanner.nextLine());
 
         System.out.print("Ingrese el ID del viaje (opcional, presione Enter para omitir): ");
@@ -97,7 +96,6 @@ public class ItinerarioTransporteConsole {
             " - Viaje ID: " + itinerario.getViajeId() + " - Trayecto ID: " + itinerario.getTrayectoId());
         
         System.out.print("Ingrese nuevo orden (presione Enter para mantener el actual): ");
-        scanner.nextLine();
         String ordenInput = scanner.nextLine();
         Integer orden = ordenInput.isEmpty() ? null : Integer.parseInt(ordenInput);
 

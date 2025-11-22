@@ -62,7 +62,6 @@ public class ActividadTuristicaConsole {
     private void addActividadTuristica() {
         System.out.println("\n--- AGREGAR NUEVA ACTIVIDAD TURÍSTICA ---");
         System.out.print("Ingrese el nombre de la actividad: ");
-        scanner.nextLine();
         String nombre = scanner.nextLine();
 
         boolean success = actividadTuristicaController.addActividadTuristica(nombre);
@@ -86,7 +85,6 @@ public class ActividadTuristicaConsole {
 
         System.out.println("Datos actuales: ID: " + actividad.getId() + " - Nombre: " + actividad.getNombre());
         System.out.print("Ingrese nuevo nombre (presione Enter para mantener el actual): ");
-        scanner.nextLine();
         String nombre = scanner.nextLine();
 
         boolean success = actividadTuristicaController.updateActividadTuristica(id, nombre.isEmpty() ? null : nombre);

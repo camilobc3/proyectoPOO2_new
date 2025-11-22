@@ -63,7 +63,6 @@ public class AsignacionGuiaConsole {
     private void addAsignacionGuia() {
         System.out.println("\n--- AGREGAR NUEVA ASIGNACIÓN DE GUÍA ---");
         System.out.print("Ingrese el ID del guía: ");
-        scanner.nextLine();
         int guiaId = Integer.parseInt(scanner.nextLine());
 
         System.out.print("Ingrese el ID de la actividad turística: ");
@@ -92,7 +91,6 @@ public class AsignacionGuiaConsole {
             " - Actividad Turística ID: " + asignacion.getActividadTuristicaId());
         
         System.out.print("Ingrese nuevo ID de guía (presione Enter para mantener el actual): ");
-        scanner.nextLine();
         String guiaIdInput = scanner.nextLine();
         Integer guiaId = guiaIdInput.isEmpty() ? null : Integer.parseInt(guiaIdInput);
 

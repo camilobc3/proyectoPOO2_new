@@ -63,7 +63,6 @@ public class HotelConsole {
     private void addHotel() {
         System.out.println("\n--- AGREGAR NUEVO HOTEL ---");
         System.out.print("Ingrese el nombre del hotel: ");
-        scanner.nextLine();
         String nombre = scanner.nextLine();
 
         System.out.print("Ingrese el ID del municipio (opcional, presione Enter para omitir): ");
@@ -93,7 +92,6 @@ public class HotelConsole {
             (hotel.getMunicipioId() != null ? " - Municipio ID: " + hotel.getMunicipioId() : ""));
         
         System.out.print("Ingrese nuevo nombre (presione Enter para mantener el actual): ");
-        scanner.nextLine();
         String nombre = scanner.nextLine();
 
         System.out.print("Ingrese nuevo ID de municipio (presione Enter para mantener el actual): ");

@@ -65,7 +65,6 @@ public class ServicioTransporteConsole {
     private void addServicioTransporte() {
         System.out.println("\n--- AGREGAR NUEVO SERVICIO DE TRANSPORTE ---");
         System.out.print("Ingrese la fecha de inicio: ");
-        scanner.nextLine();
         String fechaInicio = scanner.nextLine();
 
         System.out.print("Ingrese la fecha de fin: ");
@@ -105,7 +104,6 @@ public class ServicioTransporteConsole {
             " - Fecha Fin: " + servicio.getFechaFin() + " - Costo: " + servicio.getCosto());
         
         System.out.print("Ingrese nueva fecha de inicio (presione Enter para mantener la actual): ");
-        scanner.nextLine();
         String fechaInicio = scanner.nextLine();
 
         System.out.print("Ingrese nueva fecha de fin (presione Enter para mantener la actual): ");

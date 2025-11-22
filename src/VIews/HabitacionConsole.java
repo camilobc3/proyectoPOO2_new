@@ -64,7 +64,6 @@ public class HabitacionConsole {
     private void addHabitacion() {
         System.out.println("\n--- AGREGAR NUEVA HABITACIÓN ---");
         System.out.print("Ingrese la capacidad: ");
-        scanner.nextLine();
         int capacidad = Integer.parseInt(scanner.nextLine());
 
         System.out.print("Ingrese el costo: ");
@@ -98,7 +97,6 @@ public class HabitacionConsole {
             (habitacion.getHotelId() != null ? " - Hotel ID: " + habitacion.getHotelId() : ""));
         
         System.out.print("Ingrese nueva capacidad (presione Enter para mantener la actual): ");
-        scanner.nextLine();
         String capacidadInput = scanner.nextLine();
         Integer capacidad = capacidadInput.isEmpty() ? null : Integer.parseInt(capacidadInput);
 

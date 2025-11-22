@@ -62,7 +62,6 @@ public class ViajeConsole {
     private void addViaje() {
         System.out.println("\n--- AGREGAR NUEVO VIAJE ---");
         System.out.print("Ingrese el nombre del viaje: ");
-        scanner.nextLine();
         String nombre = scanner.nextLine();
 
         boolean success = viajeController.addViaje(nombre);
@@ -86,7 +85,6 @@ public class ViajeConsole {
 
         System.out.println("Datos actuales: ID: " + viaje.getId() + " - Nombre: " + viaje.getNombre());
         System.out.print("Ingrese nuevo nombre (presione Enter para mantener el actual): ");
-        scanner.nextLine();
         String nombre = scanner.nextLine();
 
         boolean success = viajeController.updateViaje(id, nombre.isEmpty() ? null : nombre);

@@ -63,7 +63,6 @@ public class ComponentePlanConsole {
     private void addComponentePlan() {
         System.out.println("\n--- AGREGAR NUEVO COMPONENTE DE PLAN ---");
         System.out.print("Ingrese el ID del plan: ");
-        scanner.nextLine();
         int planId = Integer.parseInt(scanner.nextLine());
 
         System.out.print("Ingrese el ID de la actividad turística: ");
@@ -92,7 +91,6 @@ public class ComponentePlanConsole {
             " - Actividad Turística ID: " + componente.getActividadTuristicaId());
         
         System.out.print("Ingrese nuevo ID de plan (presione Enter para mantener el actual): ");
-        scanner.nextLine();
         String planIdInput = scanner.nextLine();
         Integer planId = planIdInput.isEmpty() ? null : Integer.parseInt(planIdInput);
 

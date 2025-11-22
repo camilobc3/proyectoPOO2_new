@@ -65,7 +65,6 @@ public class PaqueteContratadoConsole {
     private void addPaqueteContratado() {
         System.out.println("\n--- AGREGAR NUEVO PAQUETE CONTRATADO ---");
         System.out.print("Ingrese la fecha de inicio: ");
-        scanner.nextLine();
         String fechaInicio = scanner.nextLine();
 
         System.out.print("Ingrese la fecha de fin: ");
@@ -102,7 +101,6 @@ public class PaqueteContratadoConsole {
             " - Fecha Fin: " + paquete.getFechaFin());
         
         System.out.print("Ingrese nueva fecha de inicio (presione Enter para mantener la actual): ");
-        scanner.nextLine();
         String fechaInicio = scanner.nextLine();
 
         System.out.print("Ingrese nueva fecha de fin (presione Enter para mantener la actual): ");

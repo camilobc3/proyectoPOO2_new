@@ -62,7 +62,6 @@ public class CarroConsole {
     private void addCarro() {
         System.out.println("\n--- AGREGAR NUEVO CARRO ---");
         System.out.print("Ingrese la marca del GPS: ");
-        scanner.nextLine();
         String marcaGps = scanner.nextLine();
 
         boolean success = carroController.addCarro(marcaGps);
@@ -86,7 +85,6 @@ public class CarroConsole {
 
         System.out.println("Datos actuales: ID: " + carro.getId() + " - Marca GPS: " + carro.getMarcaGps());
         System.out.print("Ingrese nueva marca de GPS (presione Enter para mantener la actual): ");
-        scanner.nextLine();
         String marcaGps = scanner.nextLine();
 
         boolean success = carroController.updateCarro(id, marcaGps.isEmpty() ? null : marcaGps);

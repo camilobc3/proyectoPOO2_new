@@ -63,7 +63,6 @@ public class ParticipacionConsole {
     private void addParticipacion() {
         System.out.println("\n--- AGREGAR NUEVA PARTICIPACIÓN ---");
         System.out.print("Ingrese el ID del viaje: ");
-        scanner.nextLine();
         int viajeId = Integer.parseInt(scanner.nextLine());
 
         System.out.print("Ingrese el ID del cliente: ");
@@ -92,7 +91,6 @@ public class ParticipacionConsole {
             " - Cliente ID: " + participacion.getClienteId());
         
         System.out.print("Ingrese nuevo ID de viaje (presione Enter para mantener el actual): ");
-        scanner.nextLine();
         String viajeIdInput = scanner.nextLine();
         Integer viajeId = viajeIdInput.isEmpty() ? null : Integer.parseInt(viajeIdInput);
 

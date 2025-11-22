@@ -62,7 +62,6 @@ public class MunicipioConsole {
     private void addMunicipio() {
         System.out.println("\n--- AGREGAR NUEVO MUNICIPIO ---");
         System.out.print("Ingrese el nombre del municipio: ");
-        scanner.nextLine();
         String nombre = scanner.nextLine();
 
         boolean success = municipioController.addMunicipio(nombre);
@@ -86,7 +85,6 @@ public class MunicipioConsole {
 
         System.out.println("Datos actuales: ID: " + municipio.getId() + " - Nombre: " + municipio.getNombre());
         System.out.print("Ingrese nuevo nombre (presione Enter para mantener el actual): ");
-        scanner.nextLine();
         String nombre = scanner.nextLine();
 
         boolean success = municipioController.updateMunicipio(id, nombre.isEmpty() ? null : nombre);
