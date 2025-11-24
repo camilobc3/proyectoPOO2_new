@@ -1,29 +1,29 @@
 package Controllers;
 
-import Models.EstanciaProgramada;
+import DataAccess.ClienteRepository;
 import DataAccess.EstanciaProgramadaRepository;
 import DataAccess.HabitacionRepository;
-import DataAccess.UsuarioRepository;
+import Models.EstanciaProgramada;
 import java.util.List;
 
 public class EstanciaProgramadaController {
     private EstanciaProgramadaRepository estanciaProgramadaRepository;
     private HabitacionRepository habitacionRepository;
-    private UsuarioRepository usuarioRepository;
+    private ClienteRepository clienteRepository;
     
     public EstanciaProgramadaController() {
         this.estanciaProgramadaRepository = new EstanciaProgramadaRepository();
         this.habitacionRepository = new HabitacionRepository();
-        this.usuarioRepository = new UsuarioRepository();
+        this.clienteRepository = new ClienteRepository();
     }
     
     // Constructor for dependency injection
     public EstanciaProgramadaController(EstanciaProgramadaRepository estanciaProgramadaRepository, 
                                        HabitacionRepository habitacionRepository,
-                                       UsuarioRepository usuarioRepository) {
+                                       ClienteRepository clienteRepository) {
         this.estanciaProgramadaRepository = estanciaProgramadaRepository;
         this.habitacionRepository = habitacionRepository;
-        this.usuarioRepository = usuarioRepository;
+        this.clienteRepository = clienteRepository;
     }
     
     public List<EstanciaProgramada> getAllEstanciasProgramadas() {
@@ -43,7 +43,7 @@ public class EstanciaProgramadaController {
             return false;
         }
         
-        if (usuarioRepository.findUsuarioById(usuarioId) == null) {
+        if (clienteRepository.findClienteById(usuarioId) == null) {
             return false;
         }
         
@@ -69,7 +69,7 @@ public class EstanciaProgramadaController {
         }
         
         if (usuarioId != null) {
-            if (usuarioRepository.findUsuarioById(usuarioId) == null) {
+            if (clienteRepository.findClienteById(usuarioId) == null) {
                 return false;
             }
             estanciaProgramada.setItinerarioTransporteId(usuarioId);

@@ -1,28 +1,28 @@
 package Controllers;
 
 import Models.PaqueteContratado;
+import DataAccess.ClienteRepository;
 import DataAccess.PaqueteContratadoRepository;
-import DataAccess.UsuarioRepository;
 import DataAccess.PlanRepository;
 import java.util.List;
 
 public class PaqueteContratadoController {
     private PaqueteContratadoRepository paqueteContratadoRepository;
-    private UsuarioRepository usuarioRepository;
+    private ClienteRepository clienteRepository;
     private PlanRepository planRepository;
     
     public PaqueteContratadoController() {
         this.paqueteContratadoRepository = new PaqueteContratadoRepository();
-        this.usuarioRepository = new UsuarioRepository();
+        this.clienteRepository = new ClienteRepository();
         this.planRepository = new PlanRepository();
     }
     
     // Constructor for dependency injection
     public PaqueteContratadoController(PaqueteContratadoRepository paqueteContratadoRepository, 
-                                      UsuarioRepository usuarioRepository,
+                                      ClienteRepository clienteRepository,
                                       PlanRepository planRepository) {
         this.paqueteContratadoRepository = paqueteContratadoRepository;
-        this.usuarioRepository = usuarioRepository;
+        this.clienteRepository = clienteRepository;
         this.planRepository = planRepository;
     }
     
@@ -40,7 +40,7 @@ public class PaqueteContratadoController {
             return false;
         }
         
-        if (usuarioId != null && usuarioRepository.findUsuarioById(usuarioId) == null) {
+        if (usuarioId != null && clienteRepository.findClienteById(usuarioId) == null) {
             return false;
         }
         
@@ -77,7 +77,7 @@ public class PaqueteContratadoController {
         }
         
         if (usuarioId != null) {
-            if (usuarioRepository.findUsuarioById(usuarioId) == null) {
+            if (clienteRepository.findClienteById(usuarioId) == null) {
                 return false;
             }
             paqueteContratado.setUsuarioId(usuarioId);
