@@ -3,6 +3,7 @@ package Controllers;
 import Models.Aeronave;
 import DataAccess.AeronaveRepository;
 import DataAccess.AerolineaRepository;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AeronaveController {
@@ -72,5 +73,19 @@ public class AeronaveController {
         aeronaveRepository.deleteAeronave(id);
         return true;
     }
+    
+    public List<Aeronave> getAeronavesByAerolineaId(Integer aerolineaId){
+        List<Aeronave> aeronaves = getAllAeronaves();
+        List<Aeronave> result = new ArrayList<>();
+        
+        for(Aeronave actual : aeronaves){
+            if(actual.getAerolineaId() != null && actual.getAerolineaId().equals(aerolineaId)){
+                result.add(actual);
+            }
+        }
+        return result;
+    }
+    
+    
 }
 
