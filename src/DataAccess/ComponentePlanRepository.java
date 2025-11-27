@@ -5,7 +5,9 @@
  */
 package DataAccess;
 
-import Models.ComponentePlan;
+import Models.*;
+import Utils.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ComponentePlanRepository {
@@ -34,6 +36,12 @@ public class ComponentePlanRepository {
     
     public void deleteComponentePlan(Integer id) {
         dataAccess.delete(id);
+    }
+    
+    public List<ComponentePlan> getComponentesPlanByPlanId(Integer planId){
+        List<ComponentePlan> componentes = getAllComponentesPlan();
+        List<ComponentePlan> respuesta = filtrarListaPorId.filtrar(componentes, a -> a.getPlanId().equals(planId));
+        return respuesta;
     }
 }
 
