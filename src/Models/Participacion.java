@@ -38,5 +38,7 @@ public class Participacion {
     public void setClienteId(Integer clienteId) {
         this.clienteId = clienteId;
     }
+    
+
 }
 

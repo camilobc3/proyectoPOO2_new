@@ -1,14 +1,19 @@
 package Controllers;
 
 import Models.Cliente;
+import Models.Participacion;
 import DataAccess.ClienteRepository;
+import DataAccess.ParticipacionRepository;
+import Controllers.ParticipacionController;
 import java.util.List;
 
 public class ClienteController {
     private ClienteRepository clienteRepository;
+    private ParticipacionRepository participacionRepository;
     
     public ClienteController() {
         this.clienteRepository = new ClienteRepository();
+        this.participacionRepository = new ParticipacionRepository();
     }
     
     // Constructor for dependency injection
@@ -63,5 +68,45 @@ public class ClienteController {
         clienteRepository.deleteCliente(id);
         return true;
     }
+    
+    public List<Participacion> getParticipacionesDeCliente(Integer clienteId){
+        return participacionRepository.getParticipacionesByClienteId(clienteId);
+    }
+    
+    public double TrayectosPorViaje(Integer clienteId){
+        double resultado = 0.0;
+        double suma = 0.0;
+        List<Participacion> misParticipaciones = getParticipacionesDeCliente(clienteId);
+        if(misParticipaciones.size()<1){ //No se considera este cliente porque no ha hecho mas de 1 viaje
+            resultado = 0.0;
+            return resultado;
+        }
+        ParticipacionController participacionController = new ParticipacionController(); //Para poder usar los metodos dentro del controller
+        for(Participacion actual: misParticipaciones){
+            suma+=participacionController.numeroTrayectosPorParticipacion(actual.getId());
+        }
+        resultado = suma;
+        return resultado;
+    }
+    
+    public double promedioTrayectosPorViaje(){
+        double resultado = 0.0;
+        double suma = 0.0;
+        double denominador = 0.0;
+        List<Cliente> clientes = getAllClientes();
+        ParticipacionController participacionController = new ParticipacionController();
+        for(Cliente actual: clientes){ //Recorrer todos los clientes
+            if(this.TrayectosPorViaje(actual.getId()) != 0.0){ //Validar si se considera el cliente o no
+                suma += this.TrayectosPorViaje(actual.getId());
+                denominador += 1;
+            }
+        }
+        
+        if(denominador == 0){
+            return 0.0;
+        }
+        
+        resultado = suma / denominador;
+        return resultado;
+    }
 }
-

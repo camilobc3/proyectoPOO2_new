@@ -6,6 +6,7 @@
 package DataAccess;
 
 import Models.ItinerarioTransporte;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItinerarioTransporteRepository {
@@ -34,6 +35,17 @@ public class ItinerarioTransporteRepository {
     
     public void deleteItinerarioTransporte(Integer id) {
         dataAccess.delete(id);
+    }
+    
+        public List<ItinerarioTransporte> getParticipacionesByViajeId(Integer viajeId){
+        List<ItinerarioTransporte> itinerarios = getAllItinerariosTransporte();
+        List<ItinerarioTransporte> result = new ArrayList<>();
+        for (ItinerarioTransporte itinerario : itinerarios){
+            if(itinerario.getViajeId()!= null && itinerario.getViajeId().equals(viajeId)){
+                result.add(itinerario);
+            }
+        }
+        return result;
     }
 }
 

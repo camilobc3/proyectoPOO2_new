@@ -1,11 +1,12 @@
 package Controllers;
 
-import Models.Viaje;
-import DataAccess.ViajeRepository;
+import Models.*;
+import DataAccess.*;
 import java.util.List;
 
 public class ViajeController {
     private ViajeRepository viajeRepository;
+    private ItinerarioTransporteRepository itinerarioTransporteRepository;
     
     public ViajeController() {
         this.viajeRepository = new ViajeRepository();
@@ -54,5 +55,17 @@ public class ViajeController {
         viajeRepository.deleteViaje(id);
         return true;
     }
+    
+    public List<ItinerarioTransporte> getItinerariosDeViaje(Integer viajeId){
+        return itinerarioTransporteRepository.getParticipacionesByViajeId(viajeId);
+    }
+    
+    public int getNumeroDeItinerariosPorViaje(Integer viajeId){
+        int resultado = 0;
+        List<ItinerarioTransporte> misItinerarios = this.getItinerariosDeViaje(viajeId);
+        resultado = misItinerarios.size();
+        return resultado;
+    }
+
 }
 

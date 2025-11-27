@@ -1,6 +1,6 @@
 package Controllers;
 
-import Models.Participacion;
+import Models.*;
 import DataAccess.ParticipacionRepository;
 import DataAccess.ViajeRepository;
 import DataAccess.ClienteRepository;
@@ -82,6 +82,27 @@ public class ParticipacionController {
     public boolean deleteParticipacion(Integer id) {
         participacionRepository.deleteParticipacion(id);
         return true;
+    }
+    
+        public Viaje getViajeDeParticipacion(Integer participacionId){
+        List<Viaje> viajes = viajeRepository.getAllViajes();
+        Viaje miViaje = null;
+        int idEsperado = getParticipacionById(participacionId).getViajeId();
+        for(Viaje actual: viajes){
+            if(actual.getId().equals(idEsperado)){
+                miViaje = actual;
+                return miViaje;
+            }
+        }
+        return null;
+    }
+    
+    public int numeroTrayectosPorParticipacion(Integer participacionId){
+        int resultado = 0;
+        Viaje miViaje = this.getViajeDeParticipacion(participacionId);
+        ViajeController viajeController = new ViajeController();
+        resultado = viajeController.getNumeroDeItinerariosPorViaje(miViaje.getId());
+        return resultado;
     }
 }
 
