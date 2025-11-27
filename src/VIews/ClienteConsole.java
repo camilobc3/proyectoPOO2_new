@@ -21,7 +21,8 @@ public class ClienteConsole {
             System.out.println("2. Agregar nuevo cliente");
             System.out.println("3. Actualizar cliente");
             System.out.println("4. Eliminar cliente");
-            System.out.println("5. Volver al menú principal");
+            System.out.println("5. Promedio de trayectos por viaje para clientes que han realizado más de un viaje.");
+            System.out.println("6. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
 
             int choice = readIntInput();
@@ -40,6 +41,9 @@ public class ClienteConsole {
                     deleteCliente();
                     break;
                 case 5:
+                    promedioTrayectosPorViajeDeClientesConMasDeUno();
+                    break;
+                case 6:
                     return;
                 default:
                     System.out.println("Opción inválida. Por favor intente nuevamente.");
@@ -132,6 +136,10 @@ public class ClienteConsole {
                 System.out.print("Entrada inválida. Por favor ingrese un número: ");
             }
         }
+    }
+    private void promedioTrayectosPorViajeDeClientesConMasDeUno(){
+        double respuesta = clienteController.promedioTrayectosPorViaje();
+        System.out.println("Promedio: "+respuesta);
     }
 }
 
