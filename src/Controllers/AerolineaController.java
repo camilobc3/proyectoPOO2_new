@@ -6,6 +6,7 @@ import java.util.List;
 
 public class AerolineaController {
     private AerolineaRepository aerolineaRepository;
+    private ServicioTransporteController servicioRespository;
     
     public AerolineaController() {
         this.aerolineaRepository = new AerolineaRepository();
@@ -54,5 +55,6 @@ public class AerolineaController {
         aerolineaRepository.deleteAerolinea(id);
         return true;
     }
+    
 }
 

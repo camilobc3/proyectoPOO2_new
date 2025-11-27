@@ -85,7 +85,5 @@ public class AeronaveController {
         }
         return result;
     }
-    
-    
 }
 

@@ -5,7 +5,9 @@
  */
 package DataAccess;
 
+import Models.Aeronave;
 import Models.ServicioTransporte;
+import Utils.filtrarListaPorId;
 import java.util.List;
 
 public class ServicioTransporteRepository {
@@ -34,6 +36,13 @@ public class ServicioTransporteRepository {
     
     public void deleteServicioTransporte(Integer id) {
         dataAccess.delete(id);
+    }
+    
+    //Usa la clase genérica con predicate. Predicate: deja enciar condiciones como parametro
+    public List<ServicioTransporte> getAeronavesByAeronaveId(Integer aeronaveId){
+        List<ServicioTransporte> serviciosTransporte = getAllServiciosTransporte();
+        List<ServicioTransporte> result = filtrarListaPorId.filtrar( serviciosTransporte,a -> a.getVehiculoId().equals(aeronaveId));
+        return result;
     }
 }
 
