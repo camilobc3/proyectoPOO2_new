@@ -10,11 +10,13 @@ public class ViajeController {
     
     public ViajeController() {
         this.viajeRepository = new ViajeRepository();
+        this.itinerarioTransporteRepository = new ItinerarioTransporteRepository();
     }
     
     // Constructor for dependency injection
     public ViajeController(ViajeRepository viajeRepository) {
         this.viajeRepository = viajeRepository;
+        this.itinerarioTransporteRepository = new ItinerarioTransporteRepository();
     }
     
     public List<Viaje> getAllViajes() {
