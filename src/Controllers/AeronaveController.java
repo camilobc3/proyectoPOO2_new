@@ -1,10 +1,13 @@
 package Controllers;
 
 import Models.Aeronave;
+import Models.Trayecto;
 import DataAccess.AeronaveRepository;
 import DataAccess.AerolineaRepository;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class AeronaveController {
     private AeronaveRepository aeronaveRepository;
@@ -74,6 +77,8 @@ public class AeronaveController {
         return true;
     }
     
+
+    
     public List<Aeronave> getAeronavesByAerolineaId(Integer aerolineaId){
         List<Aeronave> aeronaves = getAllAeronaves();
         List<Aeronave> result = new ArrayList<>();
@@ -85,5 +90,19 @@ public class AeronaveController {
         }
         return result;
     }
+
+//        /**
+//     * Devuelve el trayecto de menor costo entre todas las aeronaves dadas.
+//     */
+//    public Trayecto menorCostoTrayectoPorAeronaves(List<Aeronave> aeronaves) {
+//        if (aeronaves == null || aeronaves.isEmpty()) return null;
+//
+//        return aeronaves.stream().map(a -> servicioTransporteRepository.getAeronavesByAeronaveId(a.getId()))
+//                .flatMap(List::stream)
+//                .map(serv -> trayectoRepository.findTrayectoById(serv.getTrayectoId()))
+//                .filter(Objects::nonNull)
+//                .min(Comparator.comparing(Trayecto::getCosto))
+//                .orElse(null);
+//    }
 }
 

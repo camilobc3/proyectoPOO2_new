@@ -1,11 +1,13 @@
 package Controllers;
 
-import Models.ServicioTransporte;
+import Models.*;
 import DataAccess.ServicioTransporteRepository;
 import DataAccess.TrayectoRepository;
 import DataAccess.AeronaveRepository;
 import DataAccess.CarroRepository;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class ServicioTransporteController {
     private ServicioTransporteRepository servicioTransporteRepository;
@@ -114,6 +116,18 @@ public class ServicioTransporteController {
         return true;
     }
     
-    
+    //Analizamos los servicios de cada avión para obtener el menor
+    public Trayecto menorCostoTrayectoAeronave(Integer idAeronave) {
+        List<ServicioTransporte> servicios = servicioTransporteRepository.getAeronavesByAeronaveId(idAeronave);
+
+        Trayecto trayectoMenorCosto = servicios.stream()
+                .map(servicioTransporteActual -> trayectoRepository.findTrayectoById(servicioTransporteActual.getTrayectoId()))
+                .filter(Objects::nonNull)
+                .min(Comparator.comparing(Trayecto::getCosto))
+                .orElse(null);
+
+        return trayectoMenorCosto;
+    }
+
 }
 
