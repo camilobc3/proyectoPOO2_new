@@ -1,19 +1,24 @@
 package Controllers;
 
-import Models.Plan;
-import DataAccess.PlanRepository;
+import DataAccess.ComponentePlanRepository;
+import Models.*;
+import DataAccess.*;
+import Controllers.*;
 import java.util.List;
 
 public class PlanController {
     private PlanRepository planRepository;
+    private ComponentePlanRepository componentePlanRepository;
     
     public PlanController() {
         this.planRepository = new PlanRepository();
+        this.componentePlanRepository = new ComponentePlanRepository();
     }
     
     // Constructor for dependency injection
     public PlanController(PlanRepository planRepository) {
         this.planRepository = planRepository;
+        this.componentePlanRepository = new ComponentePlanRepository();
     }
     
     public List<Plan> getAllPlanes() {
@@ -53,6 +58,26 @@ public class PlanController {
     public boolean deletePlan(Integer id) {
         planRepository.deletePlan(id);
         return true;
+    }
+    
+    public List<ComponentePlan> getComponentesPlanDelPlan(Integer planId){
+        return componentePlanRepository.getComponentesPlanByPlanId(planId);
+    }
+    
+    public int getNumeroActividadesTuristicasDeUnPlan(Integer planId){
+        return getComponentesPlanDelPlan(planId).size();
+    }
+    
+    public int maxNumActividadesEnUnPlanConAlMenosUnTrayectoTerrestre(){
+        List<Plan> planes = getAllPlanes();
+        int max=0;
+        PlanController planController = new PlanController();
+        for(Plan actual: planes){
+            if(planController.getNumeroActividadesTuristicasDeUnPlan(actual.getId())>max){
+                max = planController.getNumeroActividadesTuristicasDeUnPlan(actual.getId());
+            }
+        }
+        return max;
     }
 }
 
