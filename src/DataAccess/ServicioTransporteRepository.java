@@ -44,5 +44,11 @@ public class ServicioTransporteRepository {
         List<ServicioTransporte> result = filtrarListaPorId.filtrar( serviciosTransporte,a -> a.getVehiculoId().equals(aeronaveId));
         return result;
     }
+    
+    public List<ServicioTransporte> getServicioTransporteByTrayectoId(Integer trayectoId){
+        List<ServicioTransporte> serviciosTransporte = getAllServiciosTransporte();
+        List<ServicioTransporte> result = filtrarListaPorId.filtrar( serviciosTransporte,a -> a.getTrayectoId().equals(trayectoId));
+        return result;
+    }
 }
 
