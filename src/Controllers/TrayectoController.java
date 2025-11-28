@@ -1,23 +1,25 @@
 package Controllers;
 
-import Models.Trayecto;
-import DataAccess.TrayectoRepository;
-import DataAccess.MunicipioRepository;
+import Models.*;
+import DataAccess.*;
 import java.util.List;
 
 public class TrayectoController {
+    private ServicioTransporteRepository servicioTransporteRepository;
     private TrayectoRepository trayectoRepository;
     private MunicipioRepository municipioRepository;
     
     public TrayectoController() {
         this.trayectoRepository = new TrayectoRepository();
         this.municipioRepository = new MunicipioRepository();
+        this.servicioTransporteRepository = new ServicioTransporteRepository();
     }
     
     // Constructor for dependency injection
     public TrayectoController(TrayectoRepository trayectoRepository, MunicipioRepository municipioRepository) {
         this.trayectoRepository = trayectoRepository;
         this.municipioRepository = municipioRepository;
+        this.servicioTransporteRepository = new ServicioTransporteRepository();
     }
     
     public List<Trayecto> getAllTrayectos() {
@@ -71,6 +73,21 @@ public class TrayectoController {
     public boolean deleteTrayecto(Integer id) {
         trayectoRepository.deleteTrayecto(id);
         return true;
+    }
+    
+    public List<ServicioTransporte> getServiciosTransportePorIdTrayecto(Integer trayectoId){
+        return servicioTransporteRepository.getServicioTransporteByTrayectoId(trayectoId);
+    }
+    
+    public boolean isTrayectoConAlgunServicioTerrestre(Integer trayectoId){
+        List<ServicioTransporte> misServiciosTransporte = getServiciosTransportePorIdTrayecto(trayectoId);
+        for(ServicioTransporte actual : misServiciosTransporte){
+            ServicioTransporteController servicioTransporteController = new ServicioTransporteController();
+            if(servicioTransporteController.isTerrestre(actual.getId())){
+                return true;
+            }
+        }
+        return false;
     }
 }
 
