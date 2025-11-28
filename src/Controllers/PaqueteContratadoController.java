@@ -1,20 +1,20 @@
 package Controllers;
 
-import Models.PaqueteContratado;
-import DataAccess.ClienteRepository;
-import DataAccess.PaqueteContratadoRepository;
-import DataAccess.PlanRepository;
+import Models.*;
+import DataAccess.*;
 import java.util.List;
 
 public class PaqueteContratadoController {
     private PaqueteContratadoRepository paqueteContratadoRepository;
     private ClienteRepository clienteRepository;
     private PlanRepository planRepository;
+    private ViajeRepository viajeRepository;
     
     public PaqueteContratadoController() {
         this.paqueteContratadoRepository = new PaqueteContratadoRepository();
         this.clienteRepository = new ClienteRepository();
         this.planRepository = new PlanRepository();
+        this.viajeRepository = new ViajeRepository();
     }
     
     // Constructor for dependency injection
@@ -96,6 +96,12 @@ public class PaqueteContratadoController {
     
     public boolean deletePaqueteContratado(Integer id) {
         paqueteContratadoRepository.deletePaqueteContratado(id);
+        return true;
+    }
+    
+    public boolean isPaqueteConAlgunTerrestre(Integer paqueteId){ //Falta terminar esta funcion
+        PaqueteContratado paqueteContratado = paqueteContratadoRepository.findPaqueteContratadoById(paqueteId); //Encontrar Paquete
+        // Viaje miViaje = viajeRepository.findViajeById(paqueteContratado.)
         return true;
     }
 }
