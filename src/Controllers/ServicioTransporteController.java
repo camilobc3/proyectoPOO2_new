@@ -1,13 +1,11 @@
 package Controllers;
 
 import Models.*;
-import DataAccess.ServicioTransporteRepository;
-import DataAccess.TrayectoRepository;
-import DataAccess.AeronaveRepository;
-import DataAccess.CarroRepository;
+import DataAccess.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import Utils.*;
 
 public class ServicioTransporteController {
     private ServicioTransporteRepository servicioTransporteRepository;
@@ -128,6 +126,16 @@ public class ServicioTransporteController {
 
         return trayectoMenorCosto;
     }
-
+    
+    public boolean isTerrestre(Integer servicioId){
+        Integer vehiculoId = getServicioTransporteById(servicioId).getVehiculoId();
+        List<Carro> carros = carroRepository.getAllCarros();
+        for(Carro actual : carros){
+            if(actual.getId().equals(vehiculoId)){
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
