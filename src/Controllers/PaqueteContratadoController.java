@@ -99,11 +99,19 @@ public class PaqueteContratadoController {
         return true;
     }
     
-    public boolean isPaqueteConAlgunTerrestre(Integer paqueteId){ //Falta terminar esta funcion
-        PaqueteContratado paqueteContratado = paqueteContratadoRepository.findPaqueteContratadoById(paqueteId); //Encontrar Paquete
-        Viaje miViaje = viajeRepository.findViajeById(paqueteContratado.getViajeId());
-        ViajeController viajeController = new ViajeController();
-        return viajeController.isViajeConTrayectoTerrestre(miViaje.getId());
-    }
+    public boolean isPaqueteConAlgunTerrestre(Integer paqueteId){ 
+    // 1. Buscar el paquete
+    PaqueteContratado paqueteContratado = paqueteContratadoRepository.findPaqueteContratadoById(paqueteId);
+    if(paqueteContratado == null) return false; // Si no existe el paquete → no hay terrestres
+
+    // 2. Buscar el viaje asociado
+    Viaje miViaje = viajeRepository.findViajeById(paqueteContratado.getViajeId());
+    if(miViaje == null) return false; // Si el paquete no tiene viaje, tampoco hay terrestres
+
+    // 3. Consultar el viaje
+    ViajeController viajeController = new ViajeController();
+    return viajeController.isViajeConTrayectoTerrestre(miViaje.getId());
+}
+
 }
 
