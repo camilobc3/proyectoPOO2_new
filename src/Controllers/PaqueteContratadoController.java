@@ -101,8 +101,9 @@ public class PaqueteContratadoController {
     
     public boolean isPaqueteConAlgunTerrestre(Integer paqueteId){ //Falta terminar esta funcion
         PaqueteContratado paqueteContratado = paqueteContratadoRepository.findPaqueteContratadoById(paqueteId); //Encontrar Paquete
-        // Viaje miViaje = viajeRepository.findViajeById(paqueteContratado.)
-        return true;
+        Viaje miViaje = viajeRepository.findViajeById(paqueteContratado.getViajeId());
+        ViajeController viajeController = new ViajeController();
+        return viajeController.isViajeConTrayectoTerrestre(miViaje.getId());
     }
 }
 
