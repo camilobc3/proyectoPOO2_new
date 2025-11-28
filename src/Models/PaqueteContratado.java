@@ -9,14 +9,16 @@ public class PaqueteContratado {
     private String fechaFin;
     private Integer usuarioId; // Referencia a Usuario (relación 1-n)
     private Integer planId; // Referencia a Plan (relación 1-n)
+    private Integer viajeId; // Referencia a Viaje
     
     public PaqueteContratado() {
     }
     
-    public PaqueteContratado(Integer id, String fechaInicio, String fechaFin, Integer usuarioId, Integer planId) {
+    public PaqueteContratado(Integer id, String fechaInicio, String fechaFin, Integer usuarioId, Integer planId, Integer viajeId) {
         this.id = id;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
+        this.viajeId = viajeId;
     }
     
     public Integer getId() {
@@ -57,6 +59,20 @@ public class PaqueteContratado {
     
     public void setPlanId(Integer planId) {
         this.planId = planId;
+    }
+
+    /**
+     * @return the viajeId
+     */
+    public Integer getViajeId() {
+        return viajeId;
+    }
+
+    /**
+     * @param viajeId the viajeId to set
+     */
+    public void setViajeId(Integer viajeId) {
+        this.viajeId = viajeId;
     }
 }
 
