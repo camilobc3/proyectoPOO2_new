@@ -1,9 +1,7 @@
 package Controllers;
 
-import Models.ItinerarioTransporte;
-import DataAccess.ItinerarioTransporteRepository;
-import DataAccess.ViajeRepository;
-import DataAccess.TrayectoRepository;
+import Models.*;
+import DataAccess.*;
 import java.util.List;
 
 public class ItinerarioTransporteController {
@@ -91,6 +89,20 @@ public class ItinerarioTransporteController {
     public boolean deleteItinerarioTransporte(Integer id) {
         itinerarioTransporteRepository.deleteItinerarioTransporte(id);
         return true;
+    }
+    
+    public List<ServicioTransporte> getServiciosTransporteByItinerarioTransporte(Integer itinerarioId){
+        ItinerarioTransporte itinerario = itinerarioTransporteRepository.findItinerarioTransporteById(itinerarioId); //Obtener itinerario
+        Trayecto miTrayecto = trayectoRepository.findTrayectoById(itinerario.getTrayectoId()); //Obtener Trayecto relacionado
+        TrayectoController trayectoController = new TrayectoController();
+        return trayectoController.getServiciosTransportePorIdTrayecto(miTrayecto.getId()); //Retornar los serviciosTransporte relacionados al trayecto
+    }
+    
+    public boolean isItinerarioConAlgunTrayectoTerrestre(Integer itinerarioId){
+        ItinerarioTransporte itinerario = itinerarioTransporteRepository.findItinerarioTransporteById(itinerarioId); //Obtener itinerario
+        Trayecto miTrayecto = trayectoRepository.findTrayectoById(itinerario.getTrayectoId()); //Obtener Trayecto relacionado
+        TrayectoController trayectoController = new TrayectoController();
+        return trayectoController.isTrayectoConAlgunServicioTerrestre(miTrayecto.getId());
     }
 }
 
