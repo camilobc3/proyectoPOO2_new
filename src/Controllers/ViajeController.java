@@ -68,6 +68,16 @@ public class ViajeController {
         resultado = misItinerarios.size();
         return resultado;
     }
-
+    
+    public boolean isViajeConTrayectoTerrestre(Integer viajeId){
+        List<ItinerarioTransporte> misItinerarios = getItinerariosDeViaje(viajeId);
+        ItinerarioTransporteController itinerarioTransporteController = new ItinerarioTransporteController();
+        for(ItinerarioTransporte actual : misItinerarios){
+            if(itinerarioTransporteController.isItinerarioConAlgunTrayectoTerrestre(actual.getId())){
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
