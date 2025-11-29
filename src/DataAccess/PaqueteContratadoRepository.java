@@ -5,7 +5,8 @@
  */
 package DataAccess;
 
-import Models.PaqueteContratado;
+import Models.*;
+import Utils.*;
 import java.util.List;
 
 public class PaqueteContratadoRepository {
@@ -34,6 +35,12 @@ public class PaqueteContratadoRepository {
     
     public void deletePaqueteContratado(Integer id) {
         dataAccess.delete(id);
+    }
+        
+    public List<PaqueteContratado> getPaquetesContratadosByPlanId(Integer planId){
+        List<PaqueteContratado> paquetes = getAllPaquetesContratados();
+        List<PaqueteContratado> result = filtrarListaPorId.filtrar(paquetes,a -> a.getPlanId().equals(planId));
+        return result;
     }
 }
 
