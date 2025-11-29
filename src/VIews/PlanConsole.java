@@ -21,7 +21,8 @@ public class PlanConsole {
             System.out.println("2. Agregar nuevo plan");
             System.out.println("3. Actualizar plan");
             System.out.println("4. Eliminar plan");
-            System.out.println("5. Volver al menú principal");
+            System.out.println("5. Máximo número de actividades en un plan para viajes que tienen al menos un trayecto terrestre.");
+            System.out.println("6. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
 
             int choice = readIntInput();
@@ -40,6 +41,9 @@ public class PlanConsole {
                     deletePlan();
                     break;
                 case 5:
+                    maxNumActividadesPorPlanConAlmenosUnTrayectoTerrestre();
+                    break;
+                case 6:
                     return;
                 default:
                     System.out.println("Opción inválida. Por favor intente nuevamente.");
@@ -116,6 +120,13 @@ public class PlanConsole {
                 System.out.print("Entrada inválida. Por favor ingrese un número: ");
             }
         }
+    }
+    
+    private void maxNumActividadesPorPlanConAlmenosUnTrayectoTerrestre(){
+        int result = 0;
+        PlanController planController = new PlanController();
+        result = planController.maxNumActividadesEnUnPlanConAlMenosUnTrayectoTerrestre();
+        System.out.println("Numero máximo de actividades: "+result);
     }
 }
 
