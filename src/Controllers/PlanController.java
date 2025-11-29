@@ -9,16 +9,19 @@ import java.util.List;
 public class PlanController {
     private PlanRepository planRepository;
     private ComponentePlanRepository componentePlanRepository;
+    private PaqueteContratadoRepository paqueteContratadoRepository;
     
     public PlanController() {
         this.planRepository = new PlanRepository();
         this.componentePlanRepository = new ComponentePlanRepository();
+        this.paqueteContratadoRepository = new PaqueteContratadoRepository();
     }
     
     // Constructor for dependency injection
     public PlanController(PlanRepository planRepository) {
         this.planRepository = planRepository;
         this.componentePlanRepository = new ComponentePlanRepository();
+        this.paqueteContratadoRepository = new PaqueteContratadoRepository();
     }
     
     public List<Plan> getAllPlanes() {
@@ -73,11 +76,26 @@ public class PlanController {
         int max=0;
         PlanController planController = new PlanController();
         for(Plan actual: planes){
-            if(planController.getNumeroActividadesTuristicasDeUnPlan(actual.getId())>max){
+            if(planController.getNumeroActividadesTuristicasDeUnPlan(actual.getId())>max && isPlanConAlgunTrayectoTerrestre(actual.getId())){
                 max = planController.getNumeroActividadesTuristicasDeUnPlan(actual.getId());
             }
         }
         return max;
+    }
+    
+    public List<PaqueteContratado> getPaquetesContratadosPorPlanId(Integer planId){
+        return paqueteContratadoRepository.getPaquetesContratadosByPlanId(planId);
+    }
+    
+    public boolean isPlanConAlgunTrayectoTerrestre(Integer planId){
+        List<PaqueteContratado> misPaquetes = getPaquetesContratadosPorPlanId(planId);
+        PaqueteContratadoController paqueteContratadoController = new PaqueteContratadoController();
+        for(PaqueteContratado actual : misPaquetes){
+            if(paqueteContratadoController.isPaqueteConAlgunTerrestre(actual.getId())){
+                return true;
+            }
+        }
+        return false;
     }
 }
 
