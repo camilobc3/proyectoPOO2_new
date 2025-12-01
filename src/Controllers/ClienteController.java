@@ -5,6 +5,7 @@ import Models.Participacion;
 import DataAccess.ClienteRepository;
 import DataAccess.ParticipacionRepository;
 import Controllers.ParticipacionController;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteController {
@@ -17,8 +18,9 @@ public class ClienteController {
     }
     
     // Constructor for dependency injection
-    public ClienteController(ClienteRepository clienteRepository) {
+    public ClienteController(ClienteRepository clienteRepository, ParticipacionRepository participacionRepository) {
         this.clienteRepository = clienteRepository;
+        this.participacionRepository = participacionRepository;
     }
     
     public List<Cliente> getAllClientes() {
@@ -109,4 +111,42 @@ public class ClienteController {
         resultado = suma / denominador;
         return resultado;
     }
+    
+    public List<Integer> getAerolineasIdByClienteId(Integer clienteId){
+        if (clienteId == null) return new ArrayList<>();
+
+        List<Participacion> misParticipaciones = getParticipacionesDeCliente(clienteId);
+        if (misParticipaciones == null || misParticipaciones.isEmpty()) return new ArrayList<>();
+
+        ParticipacionController participacionController = new ParticipacionController();
+        List<Integer> respuesta = new ArrayList<>();
+        
+        for(Participacion actual : misParticipaciones){
+            List<Integer> aerolineasId = participacionController.getAerolineasIdByParticipacionId(actual.getId());
+            if (aerolineasId != null) {
+                for (Integer id : aerolineasId) {
+                    if (!respuesta.contains(id)) { // evitar duplicados
+                        respuesta.add(id);
+                    }
+                }
+            }
+        }
+
+        return respuesta;
+    }
+    
+    public int conteoClientesEnUnaAerolineaYEnMunicipio(Integer aerolineaId, Integer municipioId){
+        int respuesta = 0;
+        List<Cliente> clientes = getAllClientes();
+        for(Cliente actual : clientes){
+            List<Integer> actualIds = getAerolineasIdByClienteId(actual.getId());
+            if(actualIds.contains(aerolineaId)){
+                respuesta++;
+            }
+        }
+        return respuesta;
+    }
+    
 }
+
+
