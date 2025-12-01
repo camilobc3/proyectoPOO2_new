@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.*;
 import DataAccess.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TrayectoController {
@@ -89,5 +90,20 @@ public class TrayectoController {
         }
         return false;
     }
+    
+    public List<Integer> getAerolineasIdByTrayectoId(Integer trayectoId){
+        List<ServicioTransporte> misServicios = getServiciosTransportePorIdTrayecto(trayectoId);
+        List<Integer> respuesta = new ArrayList<>();
+        ServicioTransporteController servicioTransporteController = new ServicioTransporteController();
+
+        for(ServicioTransporte actual : misServicios){
+            Integer aerolineaId = servicioTransporteController.getAerolineaIdFromServicioT(actual.getId());
+            if(aerolineaId != null){       // Asume null si el vehiculo no es aeronave o no existe
+                respuesta.add(aerolineaId);
+            }
+        }
+        return respuesta;
+    }
+
 }
 
