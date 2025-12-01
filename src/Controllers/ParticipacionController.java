@@ -4,6 +4,7 @@ import Models.*;
 import DataAccess.ParticipacionRepository;
 import DataAccess.ViajeRepository;
 import DataAccess.ClienteRepository;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ParticipacionController {
@@ -84,25 +85,31 @@ public class ParticipacionController {
         return true;
     }
     
-        public Viaje getViajeDeParticipacion(Integer participacionId){
-        List<Viaje> viajes = viajeRepository.getAllViajes();
-        Viaje miViaje = null;
-        int idEsperado = getParticipacionById(participacionId).getViajeId();
-        for(Viaje actual: viajes){
-            if(actual.getId().equals(idEsperado)){
-                miViaje = actual;
-                return miViaje;
-            }
-        }
-        return null;
-    }
+    public Viaje getViajeDeParticipacion(Integer participacionId) {
+        if (participacionId == null) return null;
+
+        Participacion participacion = getParticipacionById(participacionId);
+        if (participacion == null) return null;
+
+        Integer viajeId = participacion.getViajeId();
+        if (viajeId == null) return null;
+
+        return viajeRepository.findViajeById(viajeId);
+    }   
     
     public int numeroTrayectosPorParticipacion(Integer participacionId){
         int resultado = 0;
-        Viaje miViaje = this.getViajeDeParticipacion(participacionId);
+        Viaje miViaje = getViajeDeParticipacion(participacionId);
         ViajeController viajeController = new ViajeController();
         resultado = viajeController.getNumeroDeItinerariosPorViaje(miViaje.getId());
         return resultado;
+    }
+    
+    public List<Integer> getAerolineasIdByParticipacionId(Integer participacionId){
+        Viaje miViaje = getViajeDeParticipacion(participacionId);
+        if(miViaje==null) return new ArrayList<>();
+        ViajeController viajeController = new ViajeController();
+        return viajeController.getAerolineasByViajeId(miViaje.getId());
     }
 }
 
