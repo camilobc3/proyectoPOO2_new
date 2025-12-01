@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.*;
 import DataAccess.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItinerarioTransporteController {
@@ -91,18 +92,30 @@ public class ItinerarioTransporteController {
         return true;
     }
     
-    public List<ServicioTransporte> getServiciosTransporteByItinerarioTransporte(Integer itinerarioId){
-        ItinerarioTransporte itinerario = itinerarioTransporteRepository.findItinerarioTransporteById(itinerarioId); //Obtener itinerario
-        Trayecto miTrayecto = trayectoRepository.findTrayectoById(itinerario.getTrayectoId()); //Obtener Trayecto relacionado
-        TrayectoController trayectoController = new TrayectoController();
-        return trayectoController.getServiciosTransportePorIdTrayecto(miTrayecto.getId()); //Retornar los serviciosTransporte relacionados al trayecto
+    public Trayecto getMiTrayecto(Integer itinerarioId){
+        ItinerarioTransporte itinerario = itinerarioTransporteRepository.findItinerarioTransporteById(itinerarioId);
+        if (itinerario == null) return null;
+        return trayectoRepository.findTrayectoById(itinerario.getTrayectoId());
     }
-    
+
+    public List<ServicioTransporte> getServiciosTransporteByItinerarioTransporte(Integer itinerarioId){
+        Trayecto miTrayecto = getMiTrayecto(itinerarioId);
+        if (miTrayecto == null) return new ArrayList<>(); // Lista vacía segura
+        return new TrayectoController().getServiciosTransportePorIdTrayecto(miTrayecto.getId());
+    }
+
     public boolean isItinerarioConAlgunTrayectoTerrestre(Integer itinerarioId){
-        ItinerarioTransporte itinerario = itinerarioTransporteRepository.findItinerarioTransporteById(itinerarioId); //Obtener itinerario
-        Trayecto miTrayecto = trayectoRepository.findTrayectoById(itinerario.getTrayectoId()); //Obtener Trayecto relacionado
+        Trayecto miTrayecto = getMiTrayecto(itinerarioId);
+        if (miTrayecto == null) return false;
+        return new TrayectoController().isTrayectoConAlgunServicioTerrestre(miTrayecto.getId());
+    }
+
+    public List<Integer> getAerolineasByItinerarioId(Integer itinerarioId){
+        Trayecto miTrayecto = getMiTrayecto(itinerarioId);
+        // Validación importante
+        if (miTrayecto == null) return new ArrayList<>();
         TrayectoController trayectoController = new TrayectoController();
-        return trayectoController.isTrayectoConAlgunServicioTerrestre(miTrayecto.getId());
+        return trayectoController.getAerolineasIdByTrayectoId(miTrayecto.getId());
     }
 }
 
