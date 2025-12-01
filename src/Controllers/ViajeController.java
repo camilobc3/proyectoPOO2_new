@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.*;
 import DataAccess.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViajeController {
@@ -79,5 +80,21 @@ public class ViajeController {
         }
         return false;
     }
+    
+    public List<Integer> getAerolineasByViajeId(Integer viajeId){
+        List<ItinerarioTransporte> misItinerarios = getItinerariosDeViaje(viajeId);
+        if (misItinerarios == null) return new ArrayList<>();
+
+        List<Integer> respuesta = new ArrayList<>();
+        ItinerarioTransporteController itinerarioTransporteController = new ItinerarioTransporteController();
+
+        for (ItinerarioTransporte actual : misItinerarios) {
+            List<Integer> aerolineas = itinerarioTransporteController.getAerolineasByItinerarioId(actual.getId());
+            respuesta.addAll(aerolineas);
+        }
+
+        return respuesta;
+    }
+
 }
 
