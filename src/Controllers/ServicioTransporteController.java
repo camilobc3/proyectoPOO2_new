@@ -137,5 +137,23 @@ public class ServicioTransporteController {
         }
         return false;
     }
+    
+    public Aeronave getMiAeronave(Integer servicioId){
+
+        ServicioTransporte servicio = getServicioTransporteById(servicioId);
+        if(servicio == null) return null;        // No existe el servicio
+        if(servicio.getVehiculoId() == null) return null; // No tiene vehículo asignado
+
+        Aeronave miAeronave = aeronaveRepository.findAeronaveById(servicio.getVehiculoId());
+        return miAeronave; // Si no existe la aeronave igual retorna null ✔
+    }
+
+
+    public Integer getAerolineaIdFromServicioT(Integer servicioId){
+        Aeronave miAeronave = getMiAeronave(servicioId);
+        if(miAeronave == null) return null;     // Retorna null si no hay aeronave
+        return miAeronave.getAerolineaId();
+    }
+
 }
 
