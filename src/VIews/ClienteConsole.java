@@ -22,7 +22,8 @@ public class ClienteConsole {
             System.out.println("3. Actualizar cliente");
             System.out.println("4. Eliminar cliente");
             System.out.println("5. Promedio de trayectos por viaje para clientes que han realizado más de un viaje.");
-            System.out.println("6. Volver al menú principal");
+            System.out.println("6. Conteo de clientes que han utilizado una aerolínea específica y han realizado al menos una actividad en un municipio específico.");
+            System.out.println("7. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
 
             int choice = readIntInput();
@@ -44,6 +45,9 @@ public class ClienteConsole {
                     promedioTrayectosPorViajeDeClientesConMasDeUno();
                     break;
                 case 6:
+                    conteoClientesQueHanUsadoUnaAerolineaYActividadEnUnMunicipio();
+                    break;
+                case 7:
                     return;
                 default:
                     System.out.println("Opción inválida. Por favor intente nuevamente.");
@@ -140,6 +144,11 @@ public class ClienteConsole {
     private void promedioTrayectosPorViajeDeClientesConMasDeUno(){
         double respuesta = clienteController.promedioTrayectosPorViaje();
         System.out.println("Promedio: "+respuesta);
+    }
+    
+    private void conteoClientesQueHanUsadoUnaAerolineaYActividadEnUnMunicipio(){
+        int respuesta = clienteController.conteoClientesEnUnaAerolineaYEnMunicipio(3, 1);
+        System.out.println("Conteo: "+respuesta);
     }
 }
 
