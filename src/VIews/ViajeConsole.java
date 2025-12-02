@@ -21,7 +21,8 @@ public class ViajeConsole {
             System.out.println("2. Agregar nuevo viaje");
             System.out.println("3. Actualizar viaje");
             System.out.println("4. Eliminar viaje");
-            System.out.println("5. Volver al menú principal");
+            System.out.println("5. Costo de todos los servicios de transporte por viaje");
+            System.out.println("6. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
 
             int choice = readIntInput();
@@ -40,6 +41,9 @@ public class ViajeConsole {
                     deleteViaje();
                     break;
                 case 5:
+                    costoTotalDeServiciosTransportePorViaje();
+                    break;
+                case 6:
                     return;
                 default:
                     System.out.println("Opción inválida. Por favor intente nuevamente.");
@@ -116,6 +120,13 @@ public class ViajeConsole {
                 System.out.print("Entrada inválida. Por favor ingrese un número: ");
             }
         }
+    }
+    
+    private void costoTotalDeServiciosTransportePorViaje(){
+        System.out.println("Ingrese el id del viaje: ");
+        Integer idViaje = readIntInput();
+        double respuesta = viajeController.getCostosServiciosByViajeId(idViaje);
+        System.out.println("Costo total: " + respuesta);
     }
 }
 
