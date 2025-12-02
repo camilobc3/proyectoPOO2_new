@@ -117,5 +117,11 @@ public class ItinerarioTransporteController {
         TrayectoController trayectoController = new TrayectoController();
         return trayectoController.getAerolineasIdByTrayectoId(miTrayecto.getId());
     }
+    
+    public Integer getMunicipioIdByItinerarioId(Integer itinerarioId){
+        Trayecto miTrayecto = getMiTrayecto(itinerarioId);
+        Integer municipioId = miTrayecto.getMunicipioId();
+        return municipioId;
+    }
 }
 
