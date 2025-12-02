@@ -47,7 +47,7 @@ public class AerolineaConsole {
         }
     }
 
-    private void listAllAerolineas() {
+    public void listAllAerolineas() {
         System.out.println("\n--- TODAS LAS AEROLÍNEAS ---");
         List<Aerolinea> aerolineas = aerolineaController.getAllAerolineas();
         if (aerolineas.isEmpty()) {
