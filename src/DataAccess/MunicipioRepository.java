@@ -6,6 +6,7 @@
 package DataAccess;
 
 import Models.Municipio;
+import Utils.*;
 import java.util.List;
 
 public class MunicipioRepository {
