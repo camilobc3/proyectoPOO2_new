@@ -104,6 +104,16 @@ public class TrayectoController {
         }
         return respuesta;
     }
+    
+    public double getCostoTrayectoByTrayectoId(Integer trayectoId){
+        List<ServicioTransporte> misServicios = getServiciosTransportePorIdTrayecto(trayectoId);
+        if(misServicios==null) return 0.0;
+        double respuesta = 0.0;
+        for(ServicioTransporte actual : misServicios){
+            respuesta+=actual.getCosto();
+        }
+        return respuesta;
+    }
 
 }
 
