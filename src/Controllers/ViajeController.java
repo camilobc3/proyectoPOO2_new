@@ -63,6 +63,21 @@ public class ViajeController {
         return itinerarioTransporteRepository.getParticipacionesByViajeId(viajeId);
     }
     
+    public List<Integer> getMunicipiosIdByViajeId(Integer viajeId) {
+        List<ItinerarioTransporte> itinerarios = getItinerariosDeViaje(viajeId);
+        List<Integer> respuesta = new ArrayList<>();
+        ItinerarioTransporteController itController = new ItinerarioTransporteController();
+
+        for (ItinerarioTransporte it : itinerarios) {
+            Integer municipioId = itController.getMunicipioIdByItinerarioId(it.getId());
+            if (!respuesta.contains(municipioId)) {
+                respuesta.add(municipioId);
+            }
+        }
+        return respuesta;
+    }
+
+    
     public int getNumeroDeItinerariosPorViaje(Integer viajeId){
         int resultado = 0;
         List<ItinerarioTransporte> misItinerarios = this.getItinerariosDeViaje(viajeId);
