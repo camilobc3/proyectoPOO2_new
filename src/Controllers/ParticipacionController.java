@@ -11,11 +11,14 @@ public class ParticipacionController {
     private ParticipacionRepository participacionRepository;
     private ViajeRepository viajeRepository;
     private ClienteRepository clienteRepository;
+    private final ViajeController viajeController;
     
     public ParticipacionController() {
         this.participacionRepository = new ParticipacionRepository();
         this.viajeRepository = new ViajeRepository();
         this.clienteRepository = new ClienteRepository();
+        this.viajeController = new ViajeController();
+
     }
     
     // Constructor for dependency injection
@@ -25,6 +28,8 @@ public class ParticipacionController {
         this.participacionRepository = participacionRepository;
         this.viajeRepository = viajeRepository;
         this.clienteRepository = clienteRepository;
+        this.viajeController = new ViajeController();
+
     }
     
     public List<Participacion> getAllParticipaciones() {
@@ -95,12 +100,18 @@ public class ParticipacionController {
         if (viajeId == null) return null;
 
         return viajeRepository.findViajeById(viajeId);
-    }   
+    }
+    
+    public List<Integer> getMunicipiosIdByParticipacionId(Integer participacionId) {
+        Viaje viaje = getViajeDeParticipacion(participacionId);
+        if (viaje == null) return new ArrayList<>();
+        return viajeController.getMunicipiosIdByViajeId(viaje.getId());
+    }
+
     
     public int numeroTrayectosPorParticipacion(Integer participacionId){
         int resultado = 0;
         Viaje miViaje = getViajeDeParticipacion(participacionId);
-        ViajeController viajeController = new ViajeController();
         resultado = viajeController.getNumeroDeItinerariosPorViaje(miViaje.getId());
         return resultado;
     }
@@ -108,7 +119,6 @@ public class ParticipacionController {
     public List<Integer> getAerolineasIdByParticipacionId(Integer participacionId){
         Viaje miViaje = getViajeDeParticipacion(participacionId);
         if(miViaje==null) return new ArrayList<>();
-        ViajeController viajeController = new ViajeController();
         return viajeController.getAerolineasByViajeId(miViaje.getId());
     }
 }
