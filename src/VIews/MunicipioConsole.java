@@ -47,7 +47,7 @@ public class MunicipioConsole {
         }
     }
 
-    private void listAllMunicipios() {
+    public void listAllMunicipios() {
         System.out.println("\n--- TODOS LOS MUNICIPIOS ---");
         List<Municipio> municipios = municipioController.getAllMunicipios();
         if (municipios.isEmpty()) {
