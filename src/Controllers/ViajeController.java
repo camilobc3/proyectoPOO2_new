@@ -2,22 +2,26 @@ package Controllers;
 
 import Models.*;
 import DataAccess.*;
+import Controllers.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViajeController {
     private ViajeRepository viajeRepository;
     private ItinerarioTransporteRepository itinerarioTransporteRepository;
+    private final ItinerarioTransporteController itinerarioTransporteController;
     
     public ViajeController() {
         this.viajeRepository = new ViajeRepository();
         this.itinerarioTransporteRepository = new ItinerarioTransporteRepository();
+        this.itinerarioTransporteController = new ItinerarioTransporteController();
     }
     
     // Constructor for dependency injection
     public ViajeController(ViajeRepository viajeRepository) {
         this.viajeRepository = viajeRepository;
         this.itinerarioTransporteRepository = new ItinerarioTransporteRepository();
+        this.itinerarioTransporteController = new ItinerarioTransporteController();
     }
     
     public List<Viaje> getAllViajes() {
@@ -87,7 +91,6 @@ public class ViajeController {
     
     public boolean isViajeConTrayectoTerrestre(Integer viajeId){
         List<ItinerarioTransporte> misItinerarios = getItinerariosDeViaje(viajeId);
-        ItinerarioTransporteController itinerarioTransporteController = new ItinerarioTransporteController();
         for(ItinerarioTransporte actual : misItinerarios){
             if(itinerarioTransporteController.isItinerarioConAlgunTrayectoTerrestre(actual.getId())){
                 return true;
@@ -101,13 +104,22 @@ public class ViajeController {
         if (misItinerarios == null) return new ArrayList<>();
 
         List<Integer> respuesta = new ArrayList<>();
-        ItinerarioTransporteController itinerarioTransporteController = new ItinerarioTransporteController();
 
         for (ItinerarioTransporte actual : misItinerarios) {
             List<Integer> aerolineas = itinerarioTransporteController.getAerolineasByItinerarioId(actual.getId());
             respuesta.addAll(aerolineas);
         }
 
+        return respuesta;
+    }
+    
+    public double getCostosServiciosByViajeId(Integer viajeId){
+        List<ItinerarioTransporte> misItinerarios = getItinerariosDeViaje(viajeId);
+        if(misItinerarios==null) return 0.0;
+        double respuesta = 0.0;
+        for(ItinerarioTransporte actual : misItinerarios){
+            respuesta+=itinerarioTransporteController.getCostosTrayectosByItinerarioId(actual.getId());
+        }
         return respuesta;
     }
 
