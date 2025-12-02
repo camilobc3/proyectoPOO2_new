@@ -1,6 +1,7 @@
 package VIews;
 
 import Controllers.ClienteController;
+import VIews.*;
 import Models.Cliente;
 import java.util.List;
 import java.util.Scanner;
@@ -8,9 +9,13 @@ import java.util.Scanner;
 public class ClienteConsole {
     private ClienteController clienteController;
     private Scanner scanner;
+    private AerolineaConsole aerolineaConsole;
+    private MunicipioConsole municipioConsole;
 
     public ClienteConsole() {
         this.clienteController = new ClienteController();
+        this.aerolineaConsole = new AerolineaConsole();
+        this.municipioConsole = new MunicipioConsole();
         this.scanner = new Scanner(System.in);
     }
 
@@ -147,7 +152,13 @@ public class ClienteConsole {
     }
     
     private void conteoClientesQueHanUsadoUnaAerolineaYActividadEnUnMunicipio(){
-        int respuesta = clienteController.conteoClientesEnUnaAerolineaYEnMunicipio(3, 1);
+        aerolineaConsole.listAllAerolineas();
+        municipioConsole.listAllMunicipios();
+        System.out.println("Ingrese el id de la aerolinea: ");
+        Integer aerolineaId = scanner.nextInt(); 
+        System.out.println("Ingrese el id del municipio: ");
+        Integer municipioId = scanner.nextInt();
+        int respuesta = clienteController.conteoClientesEnUnaAerolineaYEnMunicipio(aerolineaId, municipioId);
         System.out.println("Conteo: "+respuesta);
     }
 }
