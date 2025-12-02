@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.*;
 import DataAccess.*;
+import Controllers.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,11 +10,13 @@ public class ItinerarioTransporteController {
     private ItinerarioTransporteRepository itinerarioTransporteRepository;
     private ViajeRepository viajeRepository;
     private TrayectoRepository trayectoRepository;
+    private final TrayectoController trayectoController;
     
     public ItinerarioTransporteController() {
         this.itinerarioTransporteRepository = new ItinerarioTransporteRepository();
         this.viajeRepository = new ViajeRepository();
         this.trayectoRepository = new TrayectoRepository();
+        this.trayectoController = new TrayectoController();
     }
     
     // Constructor for dependency injection
@@ -23,6 +26,7 @@ public class ItinerarioTransporteController {
         this.itinerarioTransporteRepository = itinerarioTransporteRepository;
         this.viajeRepository = viajeRepository;
         this.trayectoRepository = trayectoRepository;
+        this.trayectoController = new TrayectoController();
     }
     
     public List<ItinerarioTransporte> getAllItinerariosTransporte() {
@@ -114,7 +118,6 @@ public class ItinerarioTransporteController {
         Trayecto miTrayecto = getMiTrayecto(itinerarioId);
         // Validación importante
         if (miTrayecto == null) return new ArrayList<>();
-        TrayectoController trayectoController = new TrayectoController();
         return trayectoController.getAerolineasIdByTrayectoId(miTrayecto.getId());
     }
     
@@ -122,6 +125,12 @@ public class ItinerarioTransporteController {
         Trayecto miTrayecto = getMiTrayecto(itinerarioId);
         Integer municipioId = miTrayecto.getMunicipioId();
         return municipioId;
+    }
+    
+    public double getCostosTrayectosByItinerarioId(Integer itinerarioId){
+        Trayecto miTrayecto = getMiTrayecto(itinerarioId);
+        if(miTrayecto==null) return 0.0;
+        return trayectoController.getCostoTrayectoByTrayectoId(miTrayecto.getId());
     }
 }
 
