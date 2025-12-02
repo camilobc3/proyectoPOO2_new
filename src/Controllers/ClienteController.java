@@ -11,16 +11,19 @@ import java.util.List;
 public class ClienteController {
     private ClienteRepository clienteRepository;
     private ParticipacionRepository participacionRepository;
+    private final ParticipacionController participacionController;
     
     public ClienteController() {
         this.clienteRepository = new ClienteRepository();
         this.participacionRepository = new ParticipacionRepository();
+        this.participacionController = new ParticipacionController();
     }
     
     // Constructor for dependency injection
     public ClienteController(ClienteRepository clienteRepository, ParticipacionRepository participacionRepository) {
         this.clienteRepository = clienteRepository;
         this.participacionRepository = participacionRepository;
+        this.participacionController = new ParticipacionController();
     }
     
     public List<Cliente> getAllClientes() {
@@ -83,7 +86,6 @@ public class ClienteController {
             resultado = 0.0;
             return resultado;
         }
-        ParticipacionController participacionController = new ParticipacionController(); //Para poder usar los metodos dentro del controller
         for(Participacion actual: misParticipaciones){
             suma+=participacionController.numeroTrayectosPorParticipacion(actual.getId());
         }
@@ -96,7 +98,6 @@ public class ClienteController {
         double suma = 0.0;
         double denominador = 0.0;
         List<Cliente> clientes = getAllClientes();
-        ParticipacionController participacionController = new ParticipacionController();
         for(Cliente actual: clientes){ //Recorrer todos los clientes
             if(this.TrayectosPorViaje(actual.getId()) != 0.0){ //Validar si se considera el cliente o no
                 suma += this.TrayectosPorViaje(actual.getId());
@@ -117,8 +118,6 @@ public class ClienteController {
 
         List<Participacion> misParticipaciones = getParticipacionesDeCliente(clienteId);
         if (misParticipaciones == null || misParticipaciones.isEmpty()) return new ArrayList<>();
-
-        ParticipacionController participacionController = new ParticipacionController();
         List<Integer> respuesta = new ArrayList<>();
         
         for(Participacion actual : misParticipaciones){
@@ -137,13 +136,44 @@ public class ClienteController {
     
     public int conteoClientesEnUnaAerolineaYEnMunicipio(Integer aerolineaId, Integer municipioId){
         int respuesta = 0;
+
         List<Cliente> clientes = getAllClientes();
+
         for(Cliente actual : clientes){
-            List<Integer> actualIds = getAerolineasIdByClienteId(actual.getId());
-            if(actualIds.contains(aerolineaId)){
+
+            List<Integer> aerolineasDelCliente = getAerolineasIdByClienteId(actual.getId());
+            List<Integer> municipiosDelCliente = getMunicipiosIdByClienteId(actual.getId());
+
+            boolean usaAerolínea = aerolineasDelCliente.contains(aerolineaId);
+            boolean pasaPorMunicipio = municipiosDelCliente.contains(municipioId);
+
+            if(usaAerolínea && pasaPorMunicipio){
                 respuesta++;
             }
         }
+
+        return respuesta;
+    }
+
+    
+    public List<Integer> getMunicipiosIdByClienteId(Integer clienteId){
+        if (clienteId == null) return new ArrayList<>();
+
+        List<Participacion> misParticipaciones = getParticipacionesDeCliente(clienteId);
+        if (misParticipaciones == null || misParticipaciones.isEmpty()) return new ArrayList<>();
+        List<Integer> respuesta = new ArrayList<>();
+        
+        for(Participacion actual : misParticipaciones){
+            List<Integer> municipiosId = participacionController.getMunicipiosIdByParticipacionId(actual.getId());
+            if (municipiosId != null) {
+                for (Integer id : municipiosId) {
+                    if (!respuesta.contains(id)) { // evitar duplicados
+                        respuesta.add(id);
+                    }
+                }
+            }
+        }
+
         return respuesta;
     }
     
