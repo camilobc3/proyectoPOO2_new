@@ -1,8 +1,5 @@
 [
-  {
-    "id": 1,
-    "nombre": "Juan Felipe Arciniegas",
-    "telefono": "3212221222",
-    "correo": "juan@gmail.com"
-  }
+  { "id": 1, "nombre": "Miguel Torres", "telefono": "+50661000001", "correo": "miguel.torres@guias.com" },
+  { "id": 2, "nombre": "Sofía Rivera", "telefono": "+50661000002", "correo": "sofia.rivera@guias.com" },
+  { "id": 3, "nombre": "Diego Morales", "telefono": "+50661000003", "correo": "diego.morales@guias.com" }
 ]

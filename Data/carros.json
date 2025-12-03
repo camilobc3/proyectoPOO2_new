@@ -1,6 +1,6 @@
 [
-  {
-    "id": 1,
-    "marcaGps": "Azure"
-  }
+  { "id": 1, "marcaGps": "AutoNav-1", "hotelId": 1 },
+  { "id": 2, "marcaGps": "AutoNav-2", "hotelId": 1 },
+  { "id": 3, "marcaGps": "ShuttleX", "hotelId": 2 },
+  { "id": 4, "marcaGps": "CoastRide", "hotelId": 3 }
 ]

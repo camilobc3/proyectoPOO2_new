@@ -1,6 +1,6 @@
 [
-  {
-    "id": 1,
-    "nombre": "Marino Pavas"
-  }
+  { "id": 1, "nombre": "San José" },
+  { "id": 2, "nombre": "Puerto Nuevo" },
+  { "id": 3, "nombre": "Villa Verde" },
+  { "id": 4, "nombre": "Rincón del Mar" }
 ]

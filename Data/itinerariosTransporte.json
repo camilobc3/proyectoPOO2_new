@@ -1,0 +1,13 @@
+[
+  { "id": 1, "orden": 1, "viajeId": 1, "trayectoId": 1 },
+  { "id": 2, "orden": 2, "viajeId": 1, "trayectoId": 2 },
+  { "id": 3, "orden": 1, "viajeId": 2, "trayectoId": 3 },
+  { "id": 4, "orden": 1, "viajeId": 3, "trayectoId": 4 },
+  { "id": 5, "orden": 2, "viajeId": 3, "trayectoId": 5 },
+  { "id": 6, "orden": 3, "viajeId": 3, "trayectoId": 6 },
+  { "id": 7, "orden": 1, "viajeId": 4, "trayectoId": 1 },
+  { "id": 8, "orden": 2, "viajeId": 4, "trayectoId": 2 },
+  { "id": 9, "orden": 1, "viajeId": 5, "trayectoId": 3 },
+  { "id": 10, "orden": 1, "viajeId": 6, "trayectoId": 4 },
+  { "id": 11, "orden": 2, "viajeId": 6, "trayectoId": 5 }
+]

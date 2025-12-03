@@ -1,0 +1,8 @@
+[
+  { "id": 1, "costo": 150.0, "municipioId": 1 },
+  { "id": 2, "costo": 30.0, "municipioId": 2 },
+  { "id": 3, "costo": 50.0, "municipioId": 3 },
+  { "id": 4, "costo": 200.0, "municipioId": 2 },
+  { "id": 5, "costo": 20.0, "municipioId": 2 },
+  { "id": 6, "costo": 150.0, "municipioId": 3 }
+]

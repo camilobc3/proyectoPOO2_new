@@ -1,0 +1,6 @@
+[
+    { "id": 1, "capacidad": 2, "costo": 80.0, "hotelId": 1 },
+    { "id": 2, "capacidad": 3, "costo": 120.0, "hotelId": 1 },
+    { "id": 3, "capacidad": 4, "costo": 160.0, "hotelId": 2 },
+    { "id": 4, "capacidad": 2, "costo": 70.0, "hotelId": 3 }
+  ]

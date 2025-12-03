@@ -1,0 +1,5 @@
+[
+    { "id": 1, "nombre": "Hotel Costa Azul", "municipioId": 1 },
+    { "id": 2, "nombre": "Posada Puerto", "municipioId": 2 },
+    { "id": 3, "nombre": "Hostal Villa Verde", "municipioId": 3 }
+  ]

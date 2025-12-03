@@ -1,6 +1,5 @@
 [
-  {
-    "id": 1,
-    "nombre": "Avianca"
-  }
+  { "id": 1, "nombre": "AeroFast" },
+  { "id": 2, "nombre": "SkyWays" },
+  { "id": 3, "nombre": "NubeExpress" }
 ]

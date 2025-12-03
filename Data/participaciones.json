@@ -1,0 +1,8 @@
+[
+  { "id": 1, "viajeId": 1, "clienteId": 1 },
+  { "id": 2, "viajeId": 2, "clienteId": 1 },
+  { "id": 3, "viajeId": 3, "clienteId": 2 },
+  { "id": 4, "viajeId": 4, "clienteId": 3 },
+  { "id": 5, "viajeId": 5, "clienteId": 3 },
+  { "id": 6, "viajeId": 6, "clienteId": 3 }
+]

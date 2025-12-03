@@ -1,0 +1,7 @@
+[
+  { "id": 1, "fechaInicio": "2025-06-10", "fechaFin": "2025-06-10", "costo": 150.0, "trayectoId": 1, "vehiculoId": 1 },
+  { "id": 2, "fechaInicio": "2025-06-11", "fechaFin": "2025-06-11", "costo": 30.0, "trayectoId": 2, "vehiculoId": 3 },
+  { "id": 3, "fechaInicio": "2025-07-15", "fechaFin": "2025-07-15", "costo": 200.0, "trayectoId": 4, "vehiculoId": 3 },
+  { "id": 4, "fechaInicio": "2025-07-16", "fechaFin": "2025-07-16", "costo": 20.0, "trayectoId": 5, "vehiculoId": 4 },
+  { "id": 5, "fechaInicio": "2025-07-17", "fechaFin": "2025-07-17", "costo": 150.0, "trayectoId": 6, "vehiculoId": 2 }
+]

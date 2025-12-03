@@ -1,7 +1,6 @@
 [
-  {
-    "aerolineaId": 1,
-    "id": 1,
-    "marcaGps": "Plitz"
-  }
+  { "id": 1, "marcaGps": "GarminX", "aerolineaId": 1 },
+  { "id": 2, "marcaGps": "NavPro", "aerolineaId": 1 },
+  { "id": 3, "marcaGps": "SkyNav", "aerolineaId": 2 },
+  { "id": 4, "marcaGps": "FlightMap", "aerolineaId": 3 }
 ]

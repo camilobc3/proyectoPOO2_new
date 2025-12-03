@@ -1,6 +1,10 @@
 [
-  {
-    "id": 1,
-    "nombre": "Salto del ca�on"
-  }
+  { "id": 1, "nombre": "Caminata por senderos" },
+  { "id": 2, "nombre": "Buceo en arrecife" },
+  { "id": 3, "nombre": "Tour gastronómico" },
+  { "id": 4, "nombre": "Visita al museo colonial" },
+  { "id": 5, "nombre": "Paseo en bote" },
+  { "id": 6, "nombre": "Observación de aves" },
+  { "id": 7, "nombre": "Clases de surf" },
+  { "id": 8, "nombre": "Ruta histórica por la ciudad" }
 ]

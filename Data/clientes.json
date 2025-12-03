@@ -1,14 +1,7 @@
 [
-  {
-    "id": 1,
-    "nombre": "Camilo",
-    "telefono": "321",
-    "correo": "dsfsdf"
-  },
-  {
-    "id": 2,
-    "nombre": "Kevin Lopez",
-    "telefono": "3433223",
-    "correo": "kev@ppp"
-  }
+  { "id": 1, "nombre": "Carlos Pérez", "telefono": "+50660000001", "correo": "carlos.perez@example.com" },
+  { "id": 2, "nombre": "Ana Gómez", "telefono": "+50660000002", "correo": "ana.gomez@example.com" },
+  { "id": 3, "nombre": "Luis Fernández", "telefono": "+50660000003", "correo": "luis.fernandez@example.com" },
+  { "id": 4, "nombre": "María López", "telefono": "+50660000004", "correo": "maria.lopez@example.com" },
+  { "id": 5, "nombre": "Jorge Castillo", "telefono": "+50660000005", "correo": "jorge.castillo@example.com" }
 ]
