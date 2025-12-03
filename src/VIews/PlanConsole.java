@@ -139,9 +139,14 @@ public class PlanConsole {
         System.out.println("Ingrese el nombre del plan: ");
         String nombre = scanner.nextLine();
         result = planController.getListaPlanesConActividadPorNombreYContratadosPorClienteConMasDeUnViaje(nombre);
-        for (Plan plan : result) {
-                System.out.println("ID: " + plan.getId() + " - Nombre: " + plan.getNombre());
-            }
+        if(result.size()==0){
+            System.out.println("No hay planes que clasifican.");
+        }
+        else{
+            for (Plan plan : result) {
+                    System.out.println("ID: " + plan.getId() + " - Nombre: " + plan.getNombre());
+                }
+        }
     }
 }
 
