@@ -119,10 +119,10 @@ public class PaqueteContratadoController {
     public List<Cliente> getClientesByPaqueteId(Integer paqueteId){
         PaqueteContratado paqueteContratado = paqueteContratadoRepository.findPaqueteContratadoById(paqueteId);
         if(paqueteContratado == null) return new ArrayList<>();
-        
+
         Viaje miViaje = viajeRepository.findViajeById(paqueteContratado.getViajeId());
         if(miViaje == null) return new ArrayList<>();
-        
+
         return viajeController.getClientesByViajeId(miViaje.getId());
     }
 
