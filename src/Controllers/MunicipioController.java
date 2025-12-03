@@ -1,19 +1,24 @@
 package Controllers;
 
-import Models.Municipio;
+import Models.*;
+import Utils.*;
 import DataAccess.MunicipioRepository;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MunicipioController {
     private MunicipioRepository municipioRepository;
+    private HotelController hotelController; 
     
     public MunicipioController() {
         this.municipioRepository = new MunicipioRepository();
+        this.hotelController = new HotelController();
     }
     
     // Constructor for dependency injection
     public MunicipioController(MunicipioRepository municipioRepository) {
         this.municipioRepository = municipioRepository;
+        this.hotelController = new HotelController();
     }
     
     public List<Municipio> getAllMunicipios() {
