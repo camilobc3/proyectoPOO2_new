@@ -147,7 +147,7 @@ public class ClienteController {
         return sumaTotalTrayectos / totalViajes;
     }
     
-    public List<Integer> getAerolineasIdByClienteId(Integer clienteId){
+    public List<Integer> getAerolineasIdByClienteId(Integer clienteId){  
         if (clienteId == null) return new ArrayList<>();
 
         List<Participacion> misParticipaciones = getParticipacionesDeCliente(clienteId);
@@ -189,7 +189,7 @@ public class ClienteController {
 
         return respuesta;
     }
-
+    
     
     public List<Integer> getMunicipiosIdByClienteId(Integer clienteId){
         if (clienteId == null) return new ArrayList<>();
