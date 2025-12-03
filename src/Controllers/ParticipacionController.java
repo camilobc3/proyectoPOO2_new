@@ -116,7 +116,7 @@ public class ParticipacionController {
     }
 
 
-    public int numeroTrayectosPorParticipacion(Integer participacionId){
+    public int numeroTrayectosPorParticipacion(Integer participacionId){  
         int resultado = 0;
         Viaje miViaje = getViajeDeParticipacion(participacionId);
         if (miViaje == null) return 0;
