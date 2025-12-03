@@ -5,24 +5,30 @@ import DataAccess.*;
 import Controllers.*;
 import java.util.ArrayList;
 import java.util.List;
+import Utils.*;
 
 public class ViajeController {
     private ViajeRepository viajeRepository;
     private ItinerarioTransporteRepository itinerarioTransporteRepository;
     private final ItinerarioTransporteController itinerarioTransporteController;
-    
+    private ParticipacionController participacionController; // ❗ Ya NO es final
+
     public ViajeController() {
         this.viajeRepository = new ViajeRepository();
         this.itinerarioTransporteRepository = new ItinerarioTransporteRepository();
         this.itinerarioTransporteController = new ItinerarioTransporteController();
+        this.participacionController = new ParticipacionController(); // ← ¡solución!
     }
-    
+
+
     // Constructor for dependency injection
     public ViajeController(ViajeRepository viajeRepository) {
         this.viajeRepository = viajeRepository;
         this.itinerarioTransporteRepository = new ItinerarioTransporteRepository();
         this.itinerarioTransporteController = new ItinerarioTransporteController();
+        this.participacionController = new ParticipacionController(); // ← ¡solución!
     }
+
     
     public List<Viaje> getAllViajes() {
         return viajeRepository.getAllViajes();
@@ -121,6 +127,33 @@ public class ViajeController {
             respuesta+=itinerarioTransporteController.getCostosTrayectosByItinerarioId(actual.getId());
         }
         return respuesta;
+    }
+    
+    public List<Participacion> getParticipacionesByViajeId(Integer viajeId){
+        List<Participacion> participaciones = participacionController.getAllParticipaciones();
+        List<Participacion> result = filtrarListaPorId.filtrar(participaciones, a -> a.getViajeId().equals(viajeId));
+        return result;
+    }
+    
+    public List<Cliente> getClientesByViajeId(Integer viajeId) {
+        List<Participacion> participaciones = getParticipacionesByViajeId(viajeId);
+        List<Cliente> resultado = new ArrayList<>();
+        List<Integer> idsAgregados = new ArrayList<>();
+
+        for (Participacion p : participaciones) {
+            Cliente cliente = participacionController.getClienteByParticipacionId(p.getId());
+
+            if (cliente != null && !idsAgregados.contains(cliente.getId())) {
+                resultado.add(cliente);
+                idsAgregados.add(cliente.getId());
+            }
+        }
+
+        return resultado;
+    }
+
+    public void setParticipacionController(ParticipacionController pc) {
+        this.participacionController = pc;
     }
 
 }
