@@ -3,7 +3,7 @@ package Controllers;
 import DataAccess.ClienteRepository;
 import DataAccess.EstanciaProgramadaRepository;
 import DataAccess.HabitacionRepository;
-import Models.EstanciaProgramada;
+import Models.*;
 import java.util.List;
 
 public class EstanciaProgramadaController {
@@ -82,6 +82,16 @@ public class EstanciaProgramadaController {
     public boolean deleteEstanciaProgramada(Integer id) {
         estanciaProgramadaRepository.deleteEstanciaProgramada(id);
         return true;
+    }
+    
+    public Habitacion getHabitacionByEstanciaId(Integer estanciaId){
+        EstanciaProgramada estancia = getEstanciaProgramadaById(estanciaId);
+        if(estancia==null) return null;
+        
+        Habitacion miHabitacion = habitacionRepository.findHabitacionById(estancia.getHabitacionId());
+        if(miHabitacion==null) return null;
+        
+        return miHabitacion;
     }
 }
 
