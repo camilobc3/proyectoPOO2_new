@@ -19,7 +19,6 @@ public class ClienteController {
         this.participacionController = new ParticipacionController();
     }
     
-    // Constructor for dependency injection
     public ClienteController(ClienteRepository clienteRepository, ParticipacionRepository participacionRepository) {
         this.clienteRepository = clienteRepository;
         this.participacionRepository = participacionRepository;
@@ -31,6 +30,7 @@ public class ClienteController {
     }
     
     public Cliente getClienteById(Integer id) {
+        if (id == null) return null;
         return clienteRepository.findClienteById(id);
     }
     
@@ -50,6 +50,8 @@ public class ClienteController {
     }
     
     public boolean updateCliente(Integer id, String nombre, String telefono, String correo) {
+        if (id == null) return false;
+
         Cliente cliente = clienteRepository.findClienteById(id);
         if (cliente == null) {
             return false;
@@ -70,25 +72,32 @@ public class ClienteController {
     }
     
     public boolean deleteCliente(Integer id) {
+        if (id == null) return false;
         clienteRepository.deleteCliente(id);
         return true;
     }
     
     public List<Participacion> getParticipacionesDeCliente(Integer clienteId){
-        return participacionRepository.getParticipacionesByClienteId(clienteId);
+        if (clienteId == null) return new ArrayList<>();
+        List<Participacion> lista = participacionRepository.getParticipacionesByClienteId(clienteId);
+        return lista != null ? lista : new ArrayList<>();
     }
     
     public double TrayectosPorViaje(Integer clienteId){
+        if (clienteId == null) return 0.0;
+
         double resultado = 0.0;
         double suma = 0.0;
         List<Participacion> misParticipaciones = getParticipacionesDeCliente(clienteId);
-        if(misParticipaciones.size()<1){ //No se considera este cliente porque no ha hecho mas de 1 viaje
-            resultado = 0.0;
-            return resultado;
+
+        if (misParticipaciones == null || misParticipaciones.size() < 1) { 
+            return 0.0;
         }
+
         for(Participacion actual: misParticipaciones){
-            suma+=participacionController.numeroTrayectosPorParticipacion(actual.getId());
+            suma += participacionController.numeroTrayectosPorParticipacion(actual.getId());
         }
+
         resultado = suma;
         return resultado;
     }
@@ -97,9 +106,13 @@ public class ClienteController {
         double resultado = 0.0;
         double suma = 0.0;
         double denominador = 0.0;
+
         List<Cliente> clientes = getAllClientes();
-        for(Cliente actual: clientes){ //Recorrer todos los clientes
-            if(this.TrayectosPorViaje(actual.getId()) != 0.0){ //Validar si se considera el cliente o no
+
+        for(Cliente actual: clientes){ 
+            if (actual != null &&
+                this.TrayectosPorViaje(actual.getId()) != 0.0) {
+
                 suma += this.TrayectosPorViaje(actual.getId());
                 denominador += 1;
             }
@@ -118,13 +131,14 @@ public class ClienteController {
 
         List<Participacion> misParticipaciones = getParticipacionesDeCliente(clienteId);
         if (misParticipaciones == null || misParticipaciones.isEmpty()) return new ArrayList<>();
+
         List<Integer> respuesta = new ArrayList<>();
         
         for(Participacion actual : misParticipaciones){
             List<Integer> aerolineasId = participacionController.getAerolineasIdByParticipacionId(actual.getId());
             if (aerolineasId != null) {
                 for (Integer id : aerolineasId) {
-                    if (!respuesta.contains(id)) { // evitar duplicados
+                    if (!respuesta.contains(id)) { 
                         respuesta.add(id);
                     }
                 }
@@ -161,13 +175,14 @@ public class ClienteController {
 
         List<Participacion> misParticipaciones = getParticipacionesDeCliente(clienteId);
         if (misParticipaciones == null || misParticipaciones.isEmpty()) return new ArrayList<>();
+
         List<Integer> respuesta = new ArrayList<>();
         
         for(Participacion actual : misParticipaciones){
             List<Integer> municipiosId = participacionController.getMunicipiosIdByParticipacionId(actual.getId());
             if (municipiosId != null) {
                 for (Integer id : municipiosId) {
-                    if (!respuesta.contains(id)) { // evitar duplicados
+                    if (!respuesta.contains(id)) { 
                         respuesta.add(id);
                     }
                 }
@@ -177,6 +192,12 @@ public class ClienteController {
         return respuesta;
     }
     
+    public boolean isClienteConMasDeUnViaje(Integer clienteId){
+        if (clienteId == null) return false;
+
+        List<Participacion> misParticipaciones = getParticipacionesDeCliente(clienteId);
+        if (misParticipaciones == null) return false;
+
+        return misParticipaciones.size() > 1;
+    }
 }
-
-
