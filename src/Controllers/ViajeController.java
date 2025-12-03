@@ -12,6 +12,7 @@ public class ViajeController {
     private ItinerarioTransporteRepository itinerarioTransporteRepository;
     private final ItinerarioTransporteController itinerarioTransporteController;
     private ParticipacionController participacionController; // ❗ Ya NO es final
+    private HotelRepository hotelRepository;
 
     public ViajeController() {
         this.viajeRepository = new ViajeRepository();
@@ -20,6 +21,7 @@ public class ViajeController {
         this.participacionController = new ParticipacionController(); // crear instancia
         // inyectar la referencia hacia este ViajeController para romper la recursividad
         this.participacionController.setViajeController(this);
+        this.hotelRepository = new HotelRepository();
     }
 
 
@@ -30,6 +32,7 @@ public class ViajeController {
         this.itinerarioTransporteController = new ItinerarioTransporteController();
         this.participacionController = new ParticipacionController();
         this.participacionController.setViajeController(this);
+        this.hotelRepository = new HotelRepository();
     }
 
 
@@ -162,5 +165,68 @@ public class ViajeController {
             this.participacionController.setViajeController(this);
         }
     }
+    
+    public List<Habitacion> getHabitacionesByViajeId(Integer viajeId){
+        List<ItinerarioTransporte> misItinerarios = getItinerariosDeViaje(viajeId);
+        if(misItinerarios == null) return new ArrayList<>();
+        List<Habitacion> result = new ArrayList<>();
+        
+        for(ItinerarioTransporte actual : misItinerarios){
+            List<Habitacion> temp = itinerarioTransporteController.getHabitacionesByItinerarioId(actual.getId());
+            for(Habitacion habitacionActual : temp){
+                if(!result.contains(habitacionActual)){
+                    result.add(habitacionActual);
+                }
+            }
+        }
+        return result;
+    }
+    
+    public List<Hotel> getHotelesPorViajeId(Integer viajeId, List<Habitacion> habitaciones){
+        if(habitaciones==null)return new ArrayList<>();
+        
+        List<Hotel> result = new ArrayList<>();
+        
+        for(Habitacion actual : habitaciones){
+            Hotel hotelActual = hotelRepository.findHotelById(actual.getHotelId());
+            if(hotelActual != null && !result.contains(hotelActual)){
+                result.add(hotelActual);
+            }
+        }
+        return result;
+    }
 
+    public boolean isViajeConTrayectoAereo(Integer viajeId){
+        List<ItinerarioTransporte> misItinerarios = getItinerariosDeViaje(viajeId);
+        for(ItinerarioTransporte actual : misItinerarios){
+            if(itinerarioTransporteController.isItinerarioConAlgunTrayectoAereo(actual.getId())){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public double promedioHabitacionesReservadasPorHotelConTrayectoAereoYTerrestre() {
+        List<Viaje> viajes = getAllViajes();
+        if (viajes == null || viajes.isEmpty()) return 0.0;
+
+        double totalHabitaciones = 0;
+        double totalHoteles = 0;
+
+        for (Viaje viaje : viajes) {
+            int idViaje = viaje.getId();
+
+            if (isViajeConTrayectoAereo(idViaje) && isViajeConTrayectoTerrestre(idViaje)) {
+                List<Habitacion> habitaciones = getHabitacionesByViajeId(idViaje);
+                List<Hotel> hoteles = getHotelesPorViajeId(idViaje, habitaciones);
+
+                totalHabitaciones += habitaciones.size();
+                totalHoteles += hoteles.size();
+            }
+        }
+        if(totalHoteles>0){
+            return totalHabitaciones/totalHoteles;
+        }
+        return 0.0;
+    }
 }
