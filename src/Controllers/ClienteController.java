@@ -17,12 +17,27 @@ public class ClienteController {
         this.clienteRepository = new ClienteRepository();
         this.participacionRepository = new ParticipacionRepository();
         this.participacionController = new ParticipacionController();
+        
+        conectarControladores(); // Llama al método que conecta
     }
     
     public ClienteController(ClienteRepository clienteRepository, ParticipacionRepository participacionRepository) {
         this.clienteRepository = clienteRepository;
         this.participacionRepository = participacionRepository;
         this.participacionController = new ParticipacionController();
+        
+        conectarControladores(); // Llama al mismo método
+    }
+    
+    // Método privado para conectar los controladores
+    private void conectarControladores() {
+        ViajeController viajeController = new ViajeController();
+        
+        // Conectar ParticipacionController con ViajeController
+        this.participacionController.setViajeController(viajeController);
+        
+        // Conectar ViajeController con ParticipacionController
+        viajeController.setParticipacionController(this.participacionController);
     }
     
     public List<Cliente> getAllClientes() {
@@ -83,7 +98,7 @@ public class ClienteController {
         return lista != null ? lista : new ArrayList<>();
     }
     
-    public double TrayectosPorViaje(Integer clienteId){
+    public double TrayectosPorViaje(Integer clienteId){   
         if (clienteId == null) return 0.0;
 
         double resultado = 0.0;
@@ -103,27 +118,33 @@ public class ClienteController {
     }
     
     public double promedioTrayectosPorViaje(){
-        double resultado = 0.0;
-        double suma = 0.0;
-        double denominador = 0.0;
+        double sumaTotalTrayectos = 0.0;
+        int totalViajes = 0;  // Solo viajes de clientes con >1 viaje
+        int clientesConMasDeUnViaje = 0;
 
         List<Cliente> clientes = getAllClientes();
 
         for(Cliente actual: clientes){ 
-            if (actual != null &&
-                this.TrayectosPorViaje(actual.getId()) != 0.0) {
+            if (actual != null) {
+                List<Participacion> participaciones = getParticipacionesDeCliente(actual.getId());
 
-                suma += this.TrayectosPorViaje(actual.getId());
-                denominador += 1;
+                // ❗ FILTRO IMPORTANTE: Solo clientes con MÁS DE UN VIAJE
+                if (participaciones.size() > 1) {
+                    clientesConMasDeUnViaje++;
+                    totalViajes += participaciones.size();  // Todos sus viajes
+
+                    for(Participacion p : participaciones){
+                        sumaTotalTrayectos += participacionController.numeroTrayectosPorParticipacion(p.getId());
+                    }
+                }
             }
         }
-        
-        if(denominador == 0){
+
+        if(totalViajes == 0){
             return 0.0;
         }
-        
-        resultado = suma / denominador;
-        return resultado;
+
+        return sumaTotalTrayectos / totalViajes;
     }
     
     public List<Integer> getAerolineasIdByClienteId(Integer clienteId){
