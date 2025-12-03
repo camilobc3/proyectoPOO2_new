@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.*;
 import DataAccess.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PaqueteContratadoController {
@@ -9,12 +10,14 @@ public class PaqueteContratadoController {
     private ClienteRepository clienteRepository;
     private PlanRepository planRepository;
     private ViajeRepository viajeRepository;
+    private final ViajeController viajeController;
     
     public PaqueteContratadoController() {
         this.paqueteContratadoRepository = new PaqueteContratadoRepository();
         this.clienteRepository = new ClienteRepository();
         this.planRepository = new PlanRepository();
         this.viajeRepository = new ViajeRepository();
+        this.viajeController = new ViajeController();
     }
     
     // Constructor for dependency injection
@@ -24,6 +27,7 @@ public class PaqueteContratadoController {
         this.paqueteContratadoRepository = paqueteContratadoRepository;
         this.clienteRepository = clienteRepository;
         this.planRepository = planRepository;
+        this.viajeController = new ViajeController();
     }
     
     public List<PaqueteContratado> getAllPaquetesContratados() {
@@ -100,18 +104,27 @@ public class PaqueteContratadoController {
     }
     
     public boolean isPaqueteConAlgunTerrestre(Integer paqueteId){ 
-    // 1. Buscar el paquete
-    PaqueteContratado paqueteContratado = paqueteContratadoRepository.findPaqueteContratadoById(paqueteId);
-    if(paqueteContratado == null) return false; // Si no existe el paquete → no hay terrestres
+        // 1. Buscar el paquete
+        PaqueteContratado paqueteContratado = paqueteContratadoRepository.findPaqueteContratadoById(paqueteId);
+        if(paqueteContratado == null) return false; // Si no existe el paquete → no hay terrestres
 
-    // 2. Buscar el viaje asociado
-    Viaje miViaje = viajeRepository.findViajeById(paqueteContratado.getViajeId());
-    if(miViaje == null) return false; // Si el paquete no tiene viaje, tampoco hay terrestres
+        // 2. Buscar el viaje asociado
+        Viaje miViaje = viajeRepository.findViajeById(paqueteContratado.getViajeId());
+        if(miViaje == null) return false; // Si el paquete no tiene viaje, tampoco hay terrestres
 
-    // 3. Consultar el viaje
-    ViajeController viajeController = new ViajeController();
-    return viajeController.isViajeConTrayectoTerrestre(miViaje.getId());
-}
+        // 3. Consultar el viaje
+        return viajeController.isViajeConTrayectoTerrestre(miViaje.getId());
+    }
+    
+    public List<Cliente> getClientesByPaqueteId(Integer paqueteId){
+        PaqueteContratado paqueteContratado = paqueteContratadoRepository.findPaqueteContratadoById(paqueteId);
+        if(paqueteContratado == null) return new ArrayList<>();
+        
+        Viaje miViaje = viajeRepository.findViajeById(paqueteContratado.getViajeId());
+        if(miViaje == null) return new ArrayList<>();
+        
+        return viajeController.getClientesByViajeId(miViaje.getId());
+    }
 
 }
 
