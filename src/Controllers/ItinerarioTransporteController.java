@@ -5,18 +5,21 @@ import DataAccess.*;
 import Controllers.*;
 import java.util.ArrayList;
 import java.util.List;
+import Utils.*;
 
 public class ItinerarioTransporteController {
     private ItinerarioTransporteRepository itinerarioTransporteRepository;
     private ViajeRepository viajeRepository;
     private TrayectoRepository trayectoRepository;
     private final TrayectoController trayectoController;
+    private final EstanciaProgramadaController estanciaProgramadaController;
     
     public ItinerarioTransporteController() {
         this.itinerarioTransporteRepository = new ItinerarioTransporteRepository();
         this.viajeRepository = new ViajeRepository();
         this.trayectoRepository = new TrayectoRepository();
         this.trayectoController = new TrayectoController(); // ok, pero NO debe crear este controller otro ItinerarioController
+        this.estanciaProgramadaController = new EstanciaProgramadaController();
     }
     
     public ItinerarioTransporteController(ItinerarioTransporteRepository itinerarioTransporteRepository, 
@@ -26,6 +29,7 @@ public class ItinerarioTransporteController {
         this.viajeRepository = viajeRepository;
         this.trayectoRepository = trayectoRepository;
         this.trayectoController = new TrayectoController();
+        this.estanciaProgramadaController = new EstanciaProgramadaController();
     }
     
     public List<ItinerarioTransporte> getAllItinerariosTransporte() {
@@ -130,6 +134,37 @@ public class ItinerarioTransporteController {
         Trayecto miTrayecto = getMiTrayecto(itinerarioId);
         if(miTrayecto==null) return 0.0;
         return trayectoController.getCostoTrayectoByTrayectoId(miTrayecto.getId());
+    }
+    
+    public List<EstanciaProgramada> getEstanciasByItinerarioId(Integer itinerarioId){
+        List<EstanciaProgramada> estancias = estanciaProgramadaController.getAllEstanciasProgramadas();
+        if(estancias==null)return new ArrayList<>();
+        
+        List<EstanciaProgramada> result = filtrarListaPorId.filtrar(estancias,a -> a.getItinerarioTransporteId().equals(itinerarioId));
+        if(result==null)return new ArrayList<>();
+        
+        return result;
+    }
+    
+    public List<Habitacion> getHabitacionesByItinerarioId(Integer itinerarioId){
+        List<EstanciaProgramada> misEstancias = getEstanciasByItinerarioId(itinerarioId);
+        if(misEstancias==null)return new ArrayList<>();
+        
+        List<Habitacion> result = new ArrayList<>();
+        
+        for(EstanciaProgramada actual : misEstancias){
+            Habitacion temp = estanciaProgramadaController.getHabitacionByEstanciaId(actual.getId());
+            if(!result.contains(temp)){
+                result.add(temp);
+            }
+        }
+        return result;
+    }
+    
+    public boolean isItinerarioConAlgunTrayectoAereo(Integer itinerarioId){
+        Trayecto miTrayecto = getMiTrayecto(itinerarioId);
+        if (miTrayecto == null) return false;
+        return new TrayectoController().isTrayectoConAlgunServicioAereo(miTrayecto.getId());
     }
 }
 
