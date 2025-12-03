@@ -2,6 +2,7 @@ package VIews;
 
 import Controllers.PlanController;
 import Models.Plan;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,7 +23,8 @@ public class PlanConsole {
             System.out.println("3. Actualizar plan");
             System.out.println("4. Eliminar plan");
             System.out.println("5. Máximo número de actividades en un plan para viajes que tienen al menos un trayecto terrestre.");
-            System.out.println("6. Volver al menú principal");
+            System.out.println("6. Listar todos los planes que incluyen una actividad con nombre específico y que han sido contratados por clientes con más de un viaje.");
+            System.out.println("7. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
 
             int choice = readIntInput();
@@ -44,6 +46,9 @@ public class PlanConsole {
                     maxNumActividadesPorPlanConAlmenosUnTrayectoTerrestre();
                     break;
                 case 6:
+                    listarPlanesConActividadNombreYCompradosPorClientesConMasDeUnViaje();
+                    break;
+                case 7:
                     return;
                 default:
                     System.out.println("Opción inválida. Por favor intente nuevamente.");
@@ -127,6 +132,16 @@ public class PlanConsole {
         PlanController planController = new PlanController();
         result = planController.maxNumActividadesEnUnPlanConAlMenosUnTrayectoTerrestre();
         System.out.println("Numero máximo de actividades: "+result);
+    }
+    
+    private void listarPlanesConActividadNombreYCompradosPorClientesConMasDeUnViaje(){
+        List<Plan> result = new ArrayList<>();
+        System.out.println("Ingrese el nombre del plan: ");
+        String nombre = scanner.nextLine();
+        result = planController.getListaPlanesConActividadPorNombreYContratadosPorClienteConMasDeUnViaje(nombre);
+        for (Plan plan : result) {
+                System.out.println("ID: " + plan.getId() + " - Nombre: " + plan.getNombre());
+            }
     }
 }
 
