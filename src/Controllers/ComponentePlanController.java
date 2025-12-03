@@ -1,6 +1,6 @@
 package Controllers;
 
-import Models.ComponentePlan;
+import Models.*;
 import DataAccess.ComponentePlanRepository;
 import DataAccess.PlanRepository;
 import DataAccess.ActividadTuristicaRepository;
@@ -83,5 +83,20 @@ public class ComponentePlanController {
         componentePlanRepository.deleteComponentePlan(id);
         return true;
     }
+    
+    public ActividadTuristica getActividadTuristicaByComponentePlanId(Integer componenteId){
+        ComponentePlan componente = getComponentePlanById(componenteId);
+        if (componente == null) {
+            return null;
+        }
+
+        Integer actividadId = componente.getActividadTuristicaId();
+        if (actividadId == null) {
+            return null;
+        }
+
+        return actividadTuristicaRepository.findActividadTuristicaById(actividadId);
+    }
+
 }
 
