@@ -121,5 +121,18 @@ public class ParticipacionController {
         if(miViaje==null) return new ArrayList<>();
         return viajeController.getAerolineasByViajeId(miViaje.getId());
     }
+    
+    public Cliente getClienteByParticipacionId(Integer participacionId) {
+        if (participacionId == null) return null;
+
+        Participacion participacion = getParticipacionById(participacionId);
+        if (participacion == null) return null;
+
+        Integer clienteId = participacion.getClienteId();
+        if (clienteId == null) return null;
+
+        return clienteRepository.findClienteById(clienteId);
+    }
+
 }
 
