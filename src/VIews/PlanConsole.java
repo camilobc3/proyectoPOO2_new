@@ -136,8 +136,9 @@ public class PlanConsole {
     
     private void listarPlanesConActividadNombreYCompradosPorClientesConMasDeUnViaje(){
         List<Plan> result = new ArrayList<>();
-        System.out.println("Ingrese el nombre del plan: ");
+        System.out.println("Ingrese el nombre de la actividad: ");
         String nombre = scanner.nextLine();
+        nombre = normalizarInput(nombre);
         result = planController.getListaPlanesConActividadPorNombreYContratadosPorClienteConMasDeUnViaje(nombre);
         if(result.size()==0){
             System.out.println("No hay planes que clasifican.");
@@ -147,6 +148,18 @@ public class PlanConsole {
                     System.out.println("ID: " + plan.getId() + " - Nombre: " + plan.getNombre());
                 }
         }
+    }
+    // Método para normalizar el input
+    private String normalizarInput(String texto) {
+        if (texto == null) return "";
+        return texto.trim()
+                    .replace("�", "ó")  // Arregla el carácter corrupto
+                    .replace("ó", "o")  // Normaliza acentos
+                    .replace("á", "a")
+                    .replace("é", "e")
+                    .replace("í", "i")
+                    .replace("ú", "u")
+                    .toLowerCase();
     }
 }
 
