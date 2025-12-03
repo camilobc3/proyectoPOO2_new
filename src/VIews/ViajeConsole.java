@@ -22,7 +22,8 @@ public class ViajeConsole {
             System.out.println("3. Actualizar viaje");
             System.out.println("4. Eliminar viaje");
             System.out.println("5. Costo de todos los servicios de transporte por viaje");
-            System.out.println("6. Volver al menú principal");
+            System.out.println("6. Promedio de habitaciones reservadas por hotel en viajes que incluyen al menos un trayecto aéreo y un trayecto terrestre.");
+            System.out.println("7. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
 
             int choice = readIntInput();
@@ -44,6 +45,9 @@ public class ViajeConsole {
                     costoTotalDeServiciosTransportePorViaje();
                     break;
                 case 6:
+                    promedioHabitacionesReservadasPorHotelEnViajesConTrayectoAereoYTerrestre();
+                    break;
+                case 7:
                     return;
                 default:
                     System.out.println("Opción inválida. Por favor intente nuevamente.");
@@ -127,6 +131,11 @@ public class ViajeConsole {
         Integer idViaje = readIntInput();
         double respuesta = viajeController.getCostosServiciosByViajeId(idViaje);
         System.out.println("Costo total: " + respuesta);
+    }
+    
+    private void promedioHabitacionesReservadasPorHotelEnViajesConTrayectoAereoYTerrestre(){
+        double respuesta = viajeController.promedioHabitacionesReservadasPorHotelConTrayectoAereoYTerrestre();
+        System.out.println("Promedio: "+respuesta);
     }
 }
 
