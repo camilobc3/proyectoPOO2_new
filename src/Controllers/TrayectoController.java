@@ -9,6 +9,7 @@ public class TrayectoController {
     private ServicioTransporteRepository servicioTransporteRepository;
     private TrayectoRepository trayectoRepository;
     private MunicipioRepository municipioRepository;
+    private MunicipioController municipioController;
 
     // NUEVO: evitar instancias infinitas
     private ServicioTransporteController servicioTransporteController;
@@ -20,6 +21,8 @@ public class TrayectoController {
 
         // Instancia única
         this.servicioTransporteController = new ServicioTransporteController();
+        
+        this.municipioController = new MunicipioController();
     }
 
     public TrayectoController(TrayectoRepository trayectoRepository, MunicipioRepository municipioRepository) {
@@ -124,5 +127,17 @@ public class TrayectoController {
             respuesta += actual.getCosto();
         }
         return respuesta;
+    }
+    
+    public boolean isTrayectoConAlgunServicioAereo(Integer trayectoId){
+        List<ServicioTransporte> misServiciosTransporte = getServiciosTransportePorIdTrayecto(trayectoId);
+        for(ServicioTransporte actual : misServiciosTransporte){
+
+            // Usar instancia única
+            if(servicioTransporteController.isAereo(actual.getId())){
+                return true;
+            }
+        }
+        return false;
     }
 }
