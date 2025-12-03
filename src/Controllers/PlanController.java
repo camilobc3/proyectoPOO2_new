@@ -130,12 +130,28 @@ public class PlanController {
     
     public boolean isNameInSubListActividades(String nombre, List<ActividadTuristica> lista){
         if(lista == null || nombre == null) return false;
+
+        String nombreBuscadoNormalizado = normalizarParaComparacion(nombre);
+
         for(ActividadTuristica actual : lista){
-            if(actual.getNombre().equals(nombre)){
+            String nombreActualNormalizado = normalizarParaComparacion(actual.getNombre());
+
+            if(nombreActualNormalizado.equals(nombreBuscadoNormalizado)){
                 return true;
             }
         }
         return false;
+    }
+
+    private String normalizarParaComparacion(String texto) {
+        if (texto == null) return "";
+        return texto.toLowerCase().trim()
+                    .replace("ó", "o")
+                    .replace("á", "a")
+                    .replace("é", "e")
+                    .replace("í", "i")
+                    .replace("ú", "u")
+                    .replace("ñ", "n");
     }
     
     public List<Cliente> getClientesByPlanId(Integer planId){
@@ -176,9 +192,9 @@ public class PlanController {
     public List<Plan> getListaPlanesConActividadPorNombreYContratadosPorClienteConMasDeUnViaje(String nombre){
         List<Plan> planes = getAllPlanes();
         if(planes == null) return new ArrayList<>();
-        
+
         List<Plan> respuesta = new ArrayList<>(); 
-        
+
         for(Plan actual : planes){
             if(isPlanContratadoPorAlgunClienteConMasDeUnViaje(actual.getId())){
                 List<ActividadTuristica> listaActividadesActual = getActividadesTuristicasByPlanId(actual.getId());
