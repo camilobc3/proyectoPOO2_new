@@ -154,6 +154,17 @@ public class ServicioTransporteController {
         if(miAeronave == null) return null;     // Retorna null si no hay aeronave
         return miAeronave.getAerolineaId();
     }
+    
+    public boolean isAereo(Integer servicioId){
+        Integer vehiculoId = getServicioTransporteById(servicioId).getVehiculoId();
+        List<Aeronave> aeronaves = aeronaveRepository.getAllAeronaves();
+        for(Aeronave actual : aeronaves){
+            if(actual.getId().equals(vehiculoId)){
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
 
