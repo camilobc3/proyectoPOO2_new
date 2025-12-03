@@ -16,13 +16,12 @@ public class ItinerarioTransporteController {
         this.itinerarioTransporteRepository = new ItinerarioTransporteRepository();
         this.viajeRepository = new ViajeRepository();
         this.trayectoRepository = new TrayectoRepository();
-        this.trayectoController = new TrayectoController();
+        this.trayectoController = new TrayectoController(); // ok, pero NO debe crear este controller otro ItinerarioController
     }
     
-    // Constructor for dependency injection
     public ItinerarioTransporteController(ItinerarioTransporteRepository itinerarioTransporteRepository, 
-                                         ViajeRepository viajeRepository,
-                                         TrayectoRepository trayectoRepository) {
+                                          ViajeRepository viajeRepository,
+                                          TrayectoRepository trayectoRepository) {
         this.itinerarioTransporteRepository = itinerarioTransporteRepository;
         this.viajeRepository = viajeRepository;
         this.trayectoRepository = trayectoRepository;
