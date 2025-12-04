@@ -36,16 +36,5 @@ public class ParticipacionRepository {
     public void deleteParticipacion(Integer id) {
         dataAccess.delete(id);
     }
-    
-            public List<Participacion> getParticipacionesByClienteId(Integer clienteId){
-        List<Participacion> participaciones = getAllParticipaciones();
-        List<Participacion> result = new ArrayList<>();
-        for (Participacion participacion : participaciones){
-            if(participacion.getClienteId() != null && participacion.getClienteId().equals(clienteId)){
-                result.add(participacion);
-            }
-        }
-        return result;
-    }
 }
 
