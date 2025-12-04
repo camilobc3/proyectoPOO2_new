@@ -4,6 +4,7 @@ import Models.*;
 import DataAccess.*;
 import java.util.ArrayList;
 import java.util.List;
+import Utils.*;
 
 public class TrayectoController {
     private ServicioTransporteRepository servicioTransporteRepository;
@@ -86,9 +87,15 @@ public class TrayectoController {
         trayectoRepository.deleteTrayecto(id);
         return true;
     }
-
+  
     public List<ServicioTransporte> getServiciosTransportePorIdTrayecto(Integer trayectoId){
-        return servicioTransporteRepository.getServicioTransporteByTrayectoId(trayectoId);
+        List<ServicioTransporte> servicios = servicioTransporteController.getAllServiciosTransporte();
+        if(servicios==null)return new ArrayList<>();
+        
+        List<ServicioTransporte> result = filtrarListaPorId.filtrar(servicios,a -> a.getTrayectoId().equals(trayectoId));
+        if(result==null)return new ArrayList<>();
+        
+        return result;
     }
 
     public boolean isTrayectoConAlgunServicioTerrestre(Integer trayectoId){
