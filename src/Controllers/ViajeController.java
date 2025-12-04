@@ -74,9 +74,15 @@ public class ViajeController {
         viajeRepository.deleteViaje(id);
         return true;
     }
-
+   
     public List<ItinerarioTransporte> getItinerariosDeViaje(Integer viajeId){
-        return itinerarioTransporteRepository.getParticipacionesByViajeId(viajeId);
+        List<ItinerarioTransporte> itinerarios = itinerarioTransporteController.getAllItinerariosTransporte();
+        if(itinerarios==null)return new ArrayList<>();
+        
+        List<ItinerarioTransporte> result = filtrarListaPorId.filtrar(itinerarios,a -> a.getViajeId().equals(viajeId));
+        if(result==null)return new ArrayList<>();
+        
+        return result;
     }
 
     public List<Integer> getMunicipiosIdByViajeId(Integer viajeId) {
