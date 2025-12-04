@@ -6,6 +6,7 @@ import DataAccess.*;
 import Controllers.*;
 import java.util.ArrayList;
 import java.util.List;
+import Utils.*;
 
 public class PlanController {
     private PlanRepository planRepository;
@@ -73,8 +74,13 @@ public class PlanController {
     }
     
     public List<ComponentePlan> getComponentesPlanDelPlan(Integer planId){
-        if (planId == null) return new ArrayList<>();
-        return componentePlanRepository.getComponentesPlanByPlanId(planId);
+        List<ComponentePlan> componentes = componentePlanController.getAllComponentesPlan();
+        if(componentes==null)return new ArrayList<>();
+        
+        List<ComponentePlan> result = filtrarListaPorId.filtrar(componentes,a -> a.getPlanId().equals(planId));
+        if(result==null)return new ArrayList<>();
+        
+        return result;
     }
     
     public int getNumeroActividadesTuristicasDeUnPlan(Integer planId){
