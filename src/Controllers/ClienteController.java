@@ -7,6 +7,7 @@ import DataAccess.ParticipacionRepository;
 import Controllers.ParticipacionController;
 import java.util.ArrayList;
 import java.util.List;
+import Utils.*;
 
 public class ClienteController {
     private ClienteRepository clienteRepository;
@@ -93,9 +94,13 @@ public class ClienteController {
     }
     
     public List<Participacion> getParticipacionesDeCliente(Integer clienteId){
-        if (clienteId == null) return new ArrayList<>();
-        List<Participacion> lista = participacionRepository.getParticipacionesByClienteId(clienteId);
-        return lista != null ? lista : new ArrayList<>();
+        List<Participacion> participaciones = participacionController.getAllParticipaciones();
+        if(participaciones==null)return new ArrayList<>();
+        
+        List<Participacion> result = filtrarListaPorId.filtrar(participaciones, a -> a.getClienteId().equals(clienteId));
+        if(result==null)return new ArrayList<>();
+        
+        return result;
     }
     
     public double TrayectosPorViaje(Integer clienteId){   
