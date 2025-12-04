@@ -37,10 +37,5 @@ public class PaqueteContratadoRepository {
         dataAccess.delete(id);
     }
         
-    public List<PaqueteContratado> getPaquetesContratadosByPlanId(Integer planId){
-        List<PaqueteContratado> paquetes = getAllPaquetesContratados();
-        List<PaqueteContratado> result = filtrarListaPorId.filtrar(paquetes,a -> a.getPlanId().equals(planId));
-        return result;
-    }
 }
 
