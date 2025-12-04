@@ -104,8 +104,13 @@ public class PlanController {
     }
     
     public List<PaqueteContratado> getPaquetesContratadosPorPlanId(Integer planId){
-        if (planId == null) return new ArrayList<>();
-        return paqueteContratadoRepository.getPaquetesContratadosByPlanId(planId);
+        List<PaqueteContratado> paquetes = paqueteContratadoController.getAllPaquetesContratados();
+        if(paquetes==null)return new ArrayList<>();
+        
+        List<PaqueteContratado> result = filtrarListaPorId.filtrar(paquetes,a -> a.getPlanId().equals(planId));
+        if(result==null)return new ArrayList<>();
+        
+        return result;
     }
     
     public boolean isPlanConAlgunTrayectoTerrestre(Integer planId){
