@@ -38,10 +38,5 @@ public class ComponentePlanRepository {
         dataAccess.delete(id);
     }
     
-    public List<ComponentePlan> getComponentesPlanByPlanId(Integer planId){
-        List<ComponentePlan> componentes = getAllComponentesPlan();
-        List<ComponentePlan> respuesta = filtrarListaPorId.filtrar(componentes, a -> a.getPlanId().equals(planId));
-        return respuesta;
-    }
 }
 
