@@ -9,6 +9,7 @@ public class CuotaController {
     private CuotaRepository cuotaRepository;
     private ViajeRepository viajeRepository;
     
+    //Constructor por defecto
     public CuotaController() {
         this.cuotaRepository = new CuotaRepository();
         this.viajeRepository = new ViajeRepository();

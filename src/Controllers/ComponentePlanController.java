@@ -11,6 +11,8 @@ public class ComponentePlanController {
     private PlanRepository planRepository;
     private ActividadTuristicaRepository actividadTuristicaRepository;
     
+    
+    //Constructor por defecto
     public ComponentePlanController() {
         this.componentePlanRepository = new ComponentePlanRepository();
         this.planRepository = new PlanRepository();
@@ -97,6 +99,8 @@ public class ComponentePlanController {
 
         return actividadTuristicaRepository.findActividadTuristicaById(actividadId);
     }
+    
+  
 
 }
 

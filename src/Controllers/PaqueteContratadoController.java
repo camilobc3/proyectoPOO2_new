@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.*;
 import DataAccess.*;
+import Utils.filtrarListaPorId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,14 +11,15 @@ public class PaqueteContratadoController {
     private ClienteRepository clienteRepository;
     private PlanRepository planRepository;
     private ViajeRepository viajeRepository;
-    private final ViajeController viajeController;
+    private  ViajeController viajeController;
     
+    //Constructor por defecto
     public PaqueteContratadoController() {
         this.paqueteContratadoRepository = new PaqueteContratadoRepository();
         this.clienteRepository = new ClienteRepository();
         this.planRepository = new PlanRepository();
         this.viajeRepository = new ViajeRepository();
-        this.viajeController = new ViajeController();
+        //this.viajeController = new ViajeController();
     }
     
     // Constructor for dependency injection
@@ -124,6 +126,28 @@ public class PaqueteContratadoController {
         if(miViaje == null) return new ArrayList<>();
 
         return viajeController.getClientesByViajeId(miViaje.getId());
+    }
+    
+    public boolean paqueteConMasDeTresActividades(Integer planId){
+        PlanController planController = new PlanController();
+        boolean respuesta = false;
+        if(planController.planConMasDeTresActividades(planId)){
+            respuesta = true;
+        }
+        return respuesta;
+    }
+    
+    public List<PaqueteContratado> getPaquetesContratadosByViajeId(Integer viajeId){
+        List<PaqueteContratado> paquetes = getAllPaquetesContratados();
+        List<PaqueteContratado> respuesta = filtrarListaPorId.filtrar(paquetes, a -> a.getViajeId().equals(viajeId));
+        return respuesta;
+    }
+    
+    public double promedioActividadesPorPlanDelPaquete(Integer paqueteId){
+        PlanController planController = new PlanController();
+        double respuesta = 0.0;
+        respuesta = planController.promedioActividadesComponentesPorPlanDePaqueteContratado(paqueteId);
+        return respuesta;
     }
 
 }

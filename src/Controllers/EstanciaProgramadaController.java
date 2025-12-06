@@ -4,6 +4,7 @@ import DataAccess.ClienteRepository;
 import DataAccess.EstanciaProgramadaRepository;
 import DataAccess.HabitacionRepository;
 import Models.*;
+import Utils.filtrarListaPorId;
 import java.util.List;
 
 public class EstanciaProgramadaController {
@@ -11,6 +12,7 @@ public class EstanciaProgramadaController {
     private HabitacionRepository habitacionRepository;
     private ClienteRepository clienteRepository;
     
+    //Constructor por defecto
     public EstanciaProgramadaController() {
         this.estanciaProgramadaRepository = new EstanciaProgramadaRepository();
         this.habitacionRepository = new HabitacionRepository();
@@ -92,6 +94,26 @@ public class EstanciaProgramadaController {
         if(miHabitacion==null) return null;
         
         return miHabitacion;
+    }
+    
+    //Método E
+    public boolean estanciaConAlmenosTresActividades(Integer Estanciaid){
+        ItinerarioTransporteController itinerarioTransporteController = new ItinerarioTransporteController();
+        
+        boolean respuesta = false;
+        EstanciaProgramada estancia = getEstanciaProgramadaById(Estanciaid);
+        
+        if(itinerarioTransporteController.ItinerarioConMasDeTresActividades(estancia.getItinerarioTransporteId())){
+            respuesta = true;
+        }
+        
+        return respuesta;
+    }
+    
+    public List<EstanciaProgramada> getEstanciasByHabitacionId(Integer habitacionId){
+        List<EstanciaProgramada> estancias = getAllEstanciasProgramadas();
+        List<EstanciaProgramada> respuesta = filtrarListaPorId.filtrar(estancias, a -> a.getHabitacionId().equals(habitacionId));
+        return respuesta;
     }
 }
 

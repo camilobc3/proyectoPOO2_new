@@ -10,17 +10,18 @@ import Utils.*;
 public class ViajeController {
     private ViajeRepository viajeRepository;
     private ItinerarioTransporteRepository itinerarioTransporteRepository;
-    private final ItinerarioTransporteController itinerarioTransporteController;
+    private  ItinerarioTransporteController itinerarioTransporteController;
     private ParticipacionController participacionController; // ❗ Ya NO es final
     private HotelRepository hotelRepository;
 
+    //Constructor por defecto
     public ViajeController() {
         this.viajeRepository = new ViajeRepository();
         this.itinerarioTransporteRepository = new ItinerarioTransporteRepository();
-        this.itinerarioTransporteController = new ItinerarioTransporteController();
-        this.participacionController = new ParticipacionController(); // crear instancia
+        //this.itinerarioTransporteController = new ItinerarioTransporteController();
+        //this.participacionController = new ParticipacionController(); // crear instancia
         // inyectar la referencia hacia este ViajeController para romper la recursividad
-        this.participacionController.setViajeController(this);
+        //this.participacionController.setViajeController(this);
         this.hotelRepository = new HotelRepository();
     }
 
@@ -202,16 +203,7 @@ public class ViajeController {
         return result;
     }
 
-    public boolean isViajeConTrayectoAereo(Integer viajeId){
-        List<ItinerarioTransporte> misItinerarios = getItinerariosDeViaje(viajeId);
-        for(ItinerarioTransporte actual : misItinerarios){
-            if(itinerarioTransporteController.isItinerarioConAlgunTrayectoAereo(actual.getId())){
-                return true;
-            }
-        }
-        return false;
-    }
-    
+
     public double promedioHabitacionesReservadasPorHotelConTrayectoAereoYTerrestre() {
         List<Viaje> viajes = getAllViajes();
         if (viajes == null || viajes.isEmpty()) return 0.0;
@@ -235,4 +227,67 @@ public class ViajeController {
         }
         return 0.0;
     }
+    
+    //Método E
+    
+    public boolean viajeConAlmenosTresActividades(Integer viajeId){
+        
+        PaqueteContratadoController paqueteContratadoController = new PaqueteContratadoController();
+        PlanController planController = new PlanController();
+        
+        boolean respuesta = false;
+        
+        List<PaqueteContratado> paquetesViaje = paqueteContratadoController.getPaquetesContratadosByViajeId(viajeId);
+        
+        for(PaqueteContratado a : paquetesViaje){
+            if(planController.planConMasDeTresActividades(a.getViajeId())){
+                respuesta = true;
+                break;
+            }
+        }
+        
+        return respuesta;
+    }
+    
+    //Método A
+    public boolean isViajeConTrayectoAereo(Integer viajeId){
+        boolean respuesta = false;
+        ItinerarioTransporteController itinerarioTransporteController = new ItinerarioTransporteController();
+        List<ItinerarioTransporte> misItinerarios = itinerarioTransporteController.getItinerariosTransporteByViajeId(viajeId);
+
+        for(ItinerarioTransporte actual : misItinerarios){
+            if(itinerarioTransporteController.isItinerarioConAlgunTrayectoAereo(actual.getId())){
+                respuesta = true;
+                break;
+            }
+        }
+
+        return respuesta;
+    }
+
+    public boolean esViajeConTrayectoTerrestre(Integer viajeId){
+        boolean respuesta = false;
+        ItinerarioTransporteController itinerarioTransporteController = new ItinerarioTransporteController();
+        List<ItinerarioTransporte> itinerarios = itinerarioTransporteController.getItinerariosTransporteByViajeId(viajeId);
+        
+        for(ItinerarioTransporte a : itinerarios){
+            if(itinerarioTransporteController.esItinerarioConAlgunTrayectoTerrestre(a.getId())){
+                respuesta = true;
+                break;
+            }
+        }
+        return respuesta;
+    }
+//    
+//    public List<Double> promedioActividadesViajesQueTienenTrayectoAereoTerrestre(){
+//        ItinerarioTransporteController itinerarioTransporteController = new ItinerarioTransporteController();
+//        PlanController planController = new PlanController();
+//        List<Double> respuesta = new ArrayList<>();
+//        List<Viaje> viajes = getAllViajes();
+//        for(Viaje a : viajes){
+//            if(esViajeConTrayectoTerrestre(a.getId()) && isViajeConTrayectoAereo(a.getId())){
+//                respuesta.add(planController.promedioActividadesComponentesPorPlanDePaqueteContratado(a.))
+//            }
+//        }
+//    }
 }

@@ -1,13 +1,13 @@
 package Controllers;
 
-import Models.Aerolinea;
+import Models.*;
 import DataAccess.AerolineaRepository;
 import java.util.List;
 
 public class AerolineaController {
     private AerolineaRepository aerolineaRepository;
-    private ServicioTransporteController servicioRespository;
     
+    //Constructor por defecto
     public AerolineaController() {
         this.aerolineaRepository = new AerolineaRepository();
     }
@@ -56,5 +56,12 @@ public class AerolineaController {
         return true;
     }
     
+    //Método B 
+    public Trayecto trayectoDeMenorCostoAerolinea(Integer aerolineaId){
+        AeronaveController aeronaveController = new AeronaveController();
+        Trayecto respuesta = null;
+        respuesta = aeronaveController.menorCostoTrayectoAerolinea(aerolineaId);
+        return respuesta;
+    }
 }
 

@@ -21,7 +21,8 @@ public class HotelConsole {
             System.out.println("2. Agregar nuevo hotel");
             System.out.println("3. Actualizar hotel");
             System.out.println("4. Eliminar hotel");
-            System.out.println("5. Volver al menú principal");
+            System.out.println("5. Hoteles con >=3 actividades");
+            System.out.println("6. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
 
             int choice = readIntInput();
@@ -40,6 +41,9 @@ public class HotelConsole {
                     deleteHotel();
                     break;
                 case 5:
+                    listHotelesConMasDeTresActividades();
+                    break;
+                case 6:
                     return;
                 default:
                     System.out.println("Opción inválida. Por favor intente nuevamente.");
@@ -116,6 +120,19 @@ public class HotelConsole {
             System.out.println("Hotel eliminado exitosamente.");
         } else {
             System.out.println("Error al eliminar hotel. El hotel puede no existir.");
+        }
+    }
+
+    private void listHotelesConMasDeTresActividades() {
+        System.out.println("\n--- HOTELES CON HABITACIONES DE 3+ ACTIVIDADES ---");
+        List<Hotel> hoteles = hotelController.hotelesConMasDeTresActividades();
+        if (hoteles.isEmpty()) {
+            System.out.println("No hay hoteles con habitaciones que tengan al menos tres actividades.");
+            return;
+        }
+
+        for (Hotel hotel : hoteles) {
+            System.out.println("ID: " + hotel.getId() + " - Nombre: " + hotel.getNombre());
         }
     }
 

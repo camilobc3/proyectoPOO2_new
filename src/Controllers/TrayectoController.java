@@ -12,18 +12,19 @@ public class TrayectoController {
     private MunicipioRepository municipioRepository;
     private MunicipioController municipioController;
 
-    // NUEVO: evitar instancias infinitas
-    private ServicioTransporteController servicioTransporteController;
 
+    private ServicioTransporteController servicioTransporteController;
+    
+    //Constructor por defecto
     public TrayectoController() {
         this.trayectoRepository = new TrayectoRepository();
         this.municipioRepository = new MunicipioRepository();
         this.servicioTransporteRepository = new ServicioTransporteRepository();
 
         // Instancia única
-        this.servicioTransporteController = new ServicioTransporteController();
+        //this.servicioTransporteController = new ServicioTransporteController();
         
-        this.municipioController = new MunicipioController();
+        //this.municipioController = new MunicipioController();
     }
 
     public TrayectoController(TrayectoRepository trayectoRepository, MunicipioRepository municipioRepository) {
@@ -137,14 +138,33 @@ public class TrayectoController {
     }
     
     public boolean isTrayectoConAlgunServicioAereo(Integer trayectoId){
+        ServicioTransporteController servicioTransporteController = new ServicioTransporteController();
+        boolean respuesta = false;
         List<ServicioTransporte> misServiciosTransporte = getServiciosTransportePorIdTrayecto(trayectoId);
+
         for(ServicioTransporte actual : misServiciosTransporte){
 
             // Usar instancia única
             if(servicioTransporteController.isAereo(actual.getId())){
-                return true;
+                respuesta = true;
             }
         }
-        return false;
+        return respuesta;
+    }
+
+    
+    //Método A
+    public boolean esTrayectoConAlgunServicioTerrestre(Integer trayectoId){
+        ServicioTransporteController servicioTransporteController = new ServicioTransporteController();
+        boolean respuesta = false;
+        List<ServicioTransporte> misServiciosTransporte = getServiciosTransportePorIdTrayecto(trayectoId);
+        for(ServicioTransporte actual : misServiciosTransporte){
+
+            // Usar instancia única
+            if(servicioTransporteController.esTerrestre(actual.getId())){
+                respuesta = true;
+            }
+        }
+        return respuesta;
     }
 }

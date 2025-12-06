@@ -13,6 +13,7 @@ public class ServicioTransporteController {
     private AeronaveRepository aeronaveRepository;
     private CarroRepository carroRepository;
     
+    //Constructor por defecto
     public ServicioTransporteController() {
         this.servicioTransporteRepository = new ServicioTransporteRepository();
         this.trayectoRepository = new TrayectoRepository();
@@ -156,15 +157,62 @@ public class ServicioTransporteController {
     }
     
     public boolean isAereo(Integer servicioId){
+        AeronaveController aeronaveController = new AeronaveController();
+
+        boolean respuesta = false;
         Integer vehiculoId = getServicioTransporteById(servicioId).getVehiculoId();
-        List<Aeronave> aeronaves = aeronaveRepository.getAllAeronaves();
+        List<Aeronave> aeronaves = aeronaveController.getAllAeronaves();
+
         for(Aeronave actual : aeronaves){
             if(actual.getId().equals(vehiculoId)){
-                return true;
+                respuesta = true;
+                break;
             }
         }
-        return false;
+        return respuesta;
     }
+
+    
+    //Método A
+    public boolean esTerrestre(Integer servicioId){
+        CarroController carroController = new CarroController();
+        
+        boolean respuesta = false;
+        Integer vehiculoId = getServicioTransporteById(servicioId).getVehiculoId();
+        List<Carro> carros = carroController.getAllCarros();
+        for(Carro a : carros){
+            if(a.getId().equals(vehiculoId)){
+                respuesta = true;
+                break;
+            }
+        }
+        return respuesta;
+    }
+    
+    //Método B
+    public List<ServicioTransporte> getServiciosTransporteByAeronaveId(Integer aeronaveId){
+        List<ServicioTransporte> servicios = getAllServiciosTransporte();
+        List<ServicioTransporte> respuesta = filtrarListaPorId.filtrar(servicios, a -> a.getVehiculoId().equals(aeronaveId));
+        return respuesta;
+    }
+    
+    public Trayecto trayectoMenorValorPorAeronave(Integer AeronaveId){
+        TrayectoController trayectoController = new TrayectoController();
+        Trayecto respuesta = null;
+        Trayecto menorTrayecto = null; 
+        double menor = Double.MAX_VALUE;
+        List<ServicioTransporte> serviciosTransporte = getServiciosTransporteByAeronaveId(AeronaveId);
+        for(ServicioTransporte a : serviciosTransporte){
+            menorTrayecto = trayectoController.getTrayectoById(a.getTrayectoId());
+            if(menorTrayecto.getCosto() < menor){
+                menor = menorTrayecto.getCosto();
+                respuesta = menorTrayecto;
+            }
+        }
+        return respuesta;
+    }
+    
+    
 
 }
 

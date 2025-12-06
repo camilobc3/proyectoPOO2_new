@@ -2,6 +2,7 @@ package VIews;
 
 import Controllers.AerolineaController;
 import Models.Aerolinea;
+import Models.Trayecto;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,7 +22,8 @@ public class AerolineaConsole {
             System.out.println("2. Agregar nueva aerolínea");
             System.out.println("3. Actualizar aerolínea");
             System.out.println("4. Eliminar aerolínea");
-            System.out.println("5. Volver al menú principal");
+            System.out.println("5. Trayecto de menor costo por aerolínea");
+            System.out.println("6. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
 
             int choice = readIntInput();
@@ -40,6 +42,9 @@ public class AerolineaConsole {
                     deleteAerolinea();
                     break;
                 case 5:
+                    showTrayectoMenorCosto();
+                    break;
+                case 6:
                     return;
                 default:
                     System.out.println("Opción inválida. Por favor intente nuevamente.");
@@ -106,6 +111,27 @@ public class AerolineaConsole {
         } else {
             System.out.println("Error al eliminar aerolínea. La aerolínea puede no existir.");
         }
+    }
+
+    private void showTrayectoMenorCosto() {
+        System.out.println("\n--- TRAYECTO DE MENOR COSTO POR AEROLÍNEA ---");
+        System.out.print("Ingrese el ID de la aerolínea: ");
+        int id = readIntInput();
+
+        Aerolinea aerolinea = aerolineaController.getAerolineaById(id);
+        if (aerolinea == null) {
+            System.out.println("Aerolínea no encontrada.");
+            return;
+        }
+
+        Trayecto trayecto = aerolineaController.trayectoDeMenorCostoAerolinea(id);
+        if (trayecto == null) {
+            System.out.println("No se encontró un trayecto para esta aerolínea.");
+            return;
+        }
+
+        System.out.println("Aerolínea: " + aerolinea.getNombre());
+        System.out.println("Trayecto ID: " + trayecto.getId() + " - Costo: " + trayecto.getCosto());
     }
 
     private int readIntInput() {

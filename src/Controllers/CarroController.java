@@ -7,6 +7,7 @@ import java.util.List;
 public class CarroController {
     private CarroRepository carroRepository;
     
+    //Constructor por defecto
     public CarroController() {
         this.carroRepository = new CarroRepository();
     }

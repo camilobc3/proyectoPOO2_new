@@ -12,15 +12,16 @@ public class PlanController {
     private PlanRepository planRepository;
     private ComponentePlanRepository componentePlanRepository;
     private PaqueteContratadoRepository paqueteContratadoRepository;
-    private final ComponentePlanController componentePlanController;
-    private final PaqueteContratadoController paqueteContratadoController;
+    private  ComponentePlanController componentePlanController;
+    private  PaqueteContratadoController paqueteContratadoController;
     
+    //Constructor por defecto
     public PlanController() {
         this.planRepository = new PlanRepository();
         this.componentePlanRepository = new ComponentePlanRepository();
         this.paqueteContratadoRepository = new PaqueteContratadoRepository();
-        this.componentePlanController = new ComponentePlanController();
-        this.paqueteContratadoController = new PaqueteContratadoController();
+        //this.componentePlanController = new ComponentePlanController();
+        //this.paqueteContratadoController = new PaqueteContratadoController();
     }
     
     public PlanController(PlanRepository planRepository) {
@@ -74,6 +75,8 @@ public class PlanController {
     }
     
     public List<ComponentePlan> getComponentesPlanDelPlan(Integer planId){
+        
+        ComponentePlanController componentePlanController = new ComponentePlanController();
         List<ComponentePlan> componentes = componentePlanController.getAllComponentesPlan();
         if(componentes==null)return new ArrayList<>();
         
@@ -214,6 +217,31 @@ public class PlanController {
                 }
             }
         }
+        return respuesta;
+    }
+    
+    //Método E Camilo
+    public boolean planConMasDeTresActividades(Integer planId){
+        boolean respuesta = false;
+        if(getComponentesPlanDelPlan(planId).size() >= 3){
+            respuesta = true;
+        }
+        return respuesta;
+    }
+    
+    public List<Plan> getPlanesByPaqueteContratadoId(Integer paqueteId){
+        List<Plan> planes = getAllPlanes();
+        List<Plan> respuesta = filtrarListaPorId.filtrar(planes, a -> a.getId().equals(paqueteId));
+        return respuesta;
+    }
+    
+    public double promedioActividadesComponentesPorPlanDePaqueteContratado(Integer paqueteId){
+        double respuesta = 0.0;
+        List<Plan> planes = getPlanesByPaqueteContratadoId(paqueteId);
+        for(Plan a : planes){
+            respuesta++;
+        }
+        respuesta /= planes.size();
         return respuesta;
     }
 }

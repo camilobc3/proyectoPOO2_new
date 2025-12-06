@@ -12,14 +12,15 @@ import Utils.*;
 public class ClienteController {
     private ClienteRepository clienteRepository;
     private ParticipacionRepository participacionRepository;
-    private final ParticipacionController participacionController;
+    private  ParticipacionController participacionController;
     
+    
+    //Constructor por defecto
     public ClienteController() {
         this.clienteRepository = new ClienteRepository();
         this.participacionRepository = new ParticipacionRepository();
-        this.participacionController = new ParticipacionController();
-        
-        conectarControladores(); // Llama al método que conecta
+        //this.participacionController = new ParticipacionController();
+        //conectarControladores(); // Llama al método que conecta
     }
     
     public ClienteController(ClienteRepository clienteRepository, ParticipacionRepository participacionRepository) {
@@ -27,20 +28,20 @@ public class ClienteController {
         this.participacionRepository = participacionRepository;
         this.participacionController = new ParticipacionController();
         
-        conectarControladores(); // Llama al mismo método
+        //conectarControladores(); // Llama al mismo método
     }
     
     // Método privado para conectar los controladores
-    private void conectarControladores() {
-        ViajeController viajeController = new ViajeController();
-        
-        // Conectar ParticipacionController con ViajeController
-        this.participacionController.setViajeController(viajeController);
-        
-        // Conectar ViajeController con ParticipacionController
-        viajeController.setParticipacionController(this.participacionController);
-    }
-    
+//    private void conectarControladores() {
+//        ViajeController viajeController = new ViajeController();
+//        
+//        // Conectar ParticipacionController con ViajeController
+//        this.participacionController.setViajeController(viajeController);
+//        
+//        // Conectar ViajeController con ParticipacionController
+//        viajeController.setParticipacionController(this.participacionController);
+//    }
+//    
     public List<Cliente> getAllClientes() {
         return clienteRepository.getAllClientes();
     }

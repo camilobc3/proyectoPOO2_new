@@ -13,13 +13,14 @@ public class ParticipacionController {
     private ClienteRepository clienteRepository;
     // ya no es final ni se instancia aquí para evitar la dependencia circular
     private ViajeController viajeController;
-
+    
+    //Constructor por defecto
     public ParticipacionController() {
         this.participacionRepository = new ParticipacionRepository();
         this.viajeRepository = new ViajeRepository();
         this.clienteRepository = new ClienteRepository();
         // No crear new ViajeController() aquí -> evita la recursión infinita
-        this.viajeController = null;
+        //this.viajeController = null;
     }
 
     // Constructor for dependency injection

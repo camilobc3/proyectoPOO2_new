@@ -1,14 +1,16 @@
 package Controllers;
 
-import Models.Hotel;
+import Models.*;
 import DataAccess.HotelRepository;
 import DataAccess.MunicipioRepository;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HotelController {
     private HotelRepository hotelRepository;
     private MunicipioRepository municipioRepository;
     
+    //Constructor por defecto
     public HotelController() {
         this.hotelRepository = new HotelRepository();
         this.municipioRepository = new MunicipioRepository();
@@ -71,6 +73,33 @@ public class HotelController {
     public boolean deleteHotel(Integer id) {
         hotelRepository.deleteHotel(id);
         return true;
+    }
+    
+    //Método E
+    public boolean hotelConMasDeTresActividades(Integer habitacionId){
+        HabitacionController habitacionController = new HabitacionController();
+        
+        boolean respuesta = false;
+        if(habitacionController.habitacionConAlmenosTresActividades(habitacionId));
+        return respuesta;
+    }
+    
+    public List<Hotel> hotelesConMasDeTresActividades(){
+        HabitacionController habitacionController = new HabitacionController();
+        List<Hotel> hoteles = getAllHoteles();
+        List<Hotel> respuesta = new ArrayList<>();
+        for(Hotel a : hoteles){
+            List<Habitacion> habitaciones = habitacionController.getHabitacionesByhotelId(a.getId());
+            
+            for(Habitacion b : habitaciones){
+                if(habitacionController.habitacionConAlmenosTresActividades(b.getId())){
+                    respuesta.add(a);
+                    break;
+                }
+            }
+        }
+        
+        return respuesta;
     }
 }
 

@@ -4,6 +4,7 @@ import Models.Aeronave;
 import Models.Trayecto;
 import DataAccess.AeronaveRepository;
 import DataAccess.AerolineaRepository;
+import Utils.filtrarListaPorId;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -12,7 +13,8 @@ import java.util.Objects;
 public class AeronaveController {
     private AeronaveRepository aeronaveRepository;
     private AerolineaRepository aerolineaRepository;
-    
+
+    //Constructor por defecto
     public AeronaveController() {
         this.aeronaveRepository = new AeronaveRepository();
         this.aerolineaRepository = new AerolineaRepository();
@@ -81,28 +83,24 @@ public class AeronaveController {
     
     public List<Aeronave> getAeronavesByAerolineaId(Integer aerolineaId){
         List<Aeronave> aeronaves = getAllAeronaves();
-        List<Aeronave> result = new ArrayList<>();
+        List<Aeronave> respuesta = filtrarListaPorId.filtrar(aeronaves, a -> a.getAerolineaId().equals(aerolineaId));
+        return respuesta;
+    }
+    
+    public Trayecto menorCostoTrayectoAerolinea(Integer idAerolinea){
+        ServicioTransporteController servicioTransporteController = new ServicioTransporteController();
         
-        for(Aeronave actual : aeronaves){
-            if(actual.getAerolineaId() != null && actual.getAerolineaId().equals(aerolineaId)){
-                result.add(actual);
+        Trayecto respuesta = null;
+        Double menor = Double.MAX_VALUE;
+        List<Aeronave> aeronavesAerolinea = getAeronavesByAerolineaId(idAerolinea);
+        for(Aeronave a : aeronavesAerolinea){
+            if(servicioTransporteController.menorCostoTrayectoAeronave(a.getId()).getCosto() < menor){
+                respuesta = servicioTransporteController.menorCostoTrayectoAeronave(a.getId());
+                menor = servicioTransporteController.menorCostoTrayectoAeronave(a.getId()).getCosto();
             }
         }
-        return result;
+        return respuesta;
     }
 
-//        /**
-//     * Devuelve el trayecto de menor costo entre todas las aeronaves dadas.
-//     */
-//    public Trayecto menorCostoTrayectoPorAeronaves(List<Aeronave> aeronaves) {
-//        if (aeronaves == null || aeronaves.isEmpty()) return null;
-//
-//        return aeronaves.stream().map(a -> servicioTransporteRepository.getAeronavesByAeronaveId(a.getId()))
-//                .flatMap(List::stream)
-//                .map(serv -> trayectoRepository.findTrayectoById(serv.getTrayectoId()))
-//                .filter(Objects::nonNull)
-//                .min(Comparator.comparing(Trayecto::getCosto))
-//                .orElse(null);
-//    }
 }
 

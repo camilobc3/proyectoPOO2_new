@@ -10,9 +10,10 @@ public class MunicipioController {
     private MunicipioRepository municipioRepository;
     private HotelController hotelController; 
     
+    //Constructor por defecto
     public MunicipioController() {
         this.municipioRepository = new MunicipioRepository();
-        this.hotelController = new HotelController();
+        //this.hotelController = new HotelController();
     }
     
     // Constructor for dependency injection

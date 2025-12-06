@@ -7,6 +7,7 @@ import java.util.List;
 public class GuiaController {
     private GuiaRepository guiaRepository;
     
+    //Constructor por defecto
     public GuiaController() {
         this.guiaRepository = new GuiaRepository();
     }

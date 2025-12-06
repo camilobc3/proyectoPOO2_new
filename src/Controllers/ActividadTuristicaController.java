@@ -7,6 +7,8 @@ import java.util.List;
 public class ActividadTuristicaController {
     private ActividadTuristicaRepository actividadTuristicaRepository;
     
+    
+    //Constructor por defecto
     public ActividadTuristicaController() {
         this.actividadTuristicaRepository = new ActividadTuristicaRepository();
     }

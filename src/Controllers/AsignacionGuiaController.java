@@ -10,7 +10,8 @@ public class AsignacionGuiaController {
     private AsignacionGuiaRepository asignacionGuiaRepository;
     private GuiaRepository guiaRepository;
     private ActividadTuristicaRepository actividadTuristicaRepository;
-    
+
+    //Constructor por defecto
     public AsignacionGuiaController() {
         this.asignacionGuiaRepository = new AsignacionGuiaRepository();
         this.guiaRepository = new GuiaRepository();

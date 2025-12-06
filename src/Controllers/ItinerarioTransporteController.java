@@ -11,15 +11,16 @@ public class ItinerarioTransporteController {
     private ItinerarioTransporteRepository itinerarioTransporteRepository;
     private ViajeRepository viajeRepository;
     private TrayectoRepository trayectoRepository;
-    private final TrayectoController trayectoController;
-    private final EstanciaProgramadaController estanciaProgramadaController;
+    private  TrayectoController trayectoController;
+    private  EstanciaProgramadaController estanciaProgramadaController;
     
+    //Constructor por defecto
     public ItinerarioTransporteController() {
         this.itinerarioTransporteRepository = new ItinerarioTransporteRepository();
         this.viajeRepository = new ViajeRepository();
         this.trayectoRepository = new TrayectoRepository();
-        this.trayectoController = new TrayectoController(); // ok, pero NO debe crear este controller otro ItinerarioController
-        this.estanciaProgramadaController = new EstanciaProgramadaController();
+//        this.trayectoController = new TrayectoController(); // ok, pero NO debe crear este controller otro ItinerarioController
+//        this.estanciaProgramadaController = new EstanciaProgramadaController();
     }
     
     public ItinerarioTransporteController(ItinerarioTransporteRepository itinerarioTransporteRepository, 
@@ -162,9 +163,45 @@ public class ItinerarioTransporteController {
     }
     
     public boolean isItinerarioConAlgunTrayectoAereo(Integer itinerarioId){
-        Trayecto miTrayecto = getMiTrayecto(itinerarioId);
-        if (miTrayecto == null) return false;
-        return new TrayectoController().isTrayectoConAlgunServicioAereo(miTrayecto.getId());
+        TrayectoController trayectoController = new TrayectoController();
+        boolean respuesta = false;
+
+        if (trayectoController.isTrayectoConAlgunServicioAereo(itinerarioId)){
+            respuesta = true;
+        }
+
+        return respuesta;
+    }
+
+    
+    //Método A
+    public boolean esItinerarioConAlgunTrayectoTerrestre(Integer itinerarioId){
+        TrayectoController trayectoController = new TrayectoController();
+        boolean respuesta = false;
+        if(trayectoController.esTrayectoConAlgunServicioTerrestre(itinerarioId)){
+            respuesta = true;
+        }
+        return respuesta;
+    }
+    
+    public List<ItinerarioTransporte> getItinerariosTransporteByViajeId(Integer viajeId){
+        List<ItinerarioTransporte> itinerarios = getAllItinerariosTransporte();
+        List<ItinerarioTransporte> respuesta = filtrarListaPorId.filtrar(itinerarios, a -> a.getViajeId().equals(viajeId));
+        return respuesta;
+    }
+    
+    //Metodo E
+    public boolean ItinerarioConMasDeTresActividades(Integer itinerarioId){
+        ViajeController viajeController = new ViajeController();
+        
+        boolean respuesta = false;
+        ItinerarioTransporte itinerario = getItinerarioTransporteById(itinerarioId);
+        
+        if(viajeController.viajeConAlmenosTresActividades(itinerario.getViajeId())){
+            respuesta = true;
+        }
+        
+        return respuesta;
     }
 }
 

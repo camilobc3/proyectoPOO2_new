@@ -1,14 +1,16 @@
 package Controllers;
 
-import Models.Habitacion;
+import Models.*;
 import DataAccess.HabitacionRepository;
 import DataAccess.HotelRepository;
+import Utils.filtrarListaPorId;
 import java.util.List;
 
 public class HabitacionController {
     private HabitacionRepository habitacionRepository;
     private HotelRepository hotelRepository;
     
+    //Constructor por defecto
     public HabitacionController() {
         this.habitacionRepository = new HabitacionRepository();
         this.hotelRepository = new HotelRepository();
@@ -76,6 +78,29 @@ public class HabitacionController {
     public boolean deleteHabitacion(Integer id) {
         habitacionRepository.deleteHabitacion(id);
         return true;
+    }
+    
+    //Metodo E
+    public boolean habitacionConAlmenosTresActividades( Integer habitacionId){
+        EstanciaProgramadaController estanciaProgramadaController = new EstanciaProgramadaController();
+        
+        boolean respuesta = false;
+        List<EstanciaProgramada> estanciasHabitacion = estanciaProgramadaController.getEstanciasByHabitacionId(habitacionId);
+        
+        for(EstanciaProgramada a : estanciasHabitacion){
+            if(estanciaProgramadaController.estanciaConAlmenosTresActividades(habitacionId)){
+                respuesta = true;
+                break;
+            }
+        }
+        
+        return respuesta;
+    }
+    
+    public List<Habitacion> getHabitacionesByhotelId(Integer hotelId){
+        List<Habitacion> habitaciones = getAllHabitaciones();
+        List<Habitacion> respuesta = filtrarListaPorId.filtrar(habitaciones, a -> a.getId().equals(hotelId));
+        return respuesta;
     }
 }
 
