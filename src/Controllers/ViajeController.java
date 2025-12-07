@@ -290,4 +290,22 @@ public class ViajeController {
 //            }
 //        }
 //    }
+    
+    //Método D
+    public double sumatoriaTrayectosAereos(Integer viajeId){
+        ItinerarioTransporteController itinerarioTransporteController = new ItinerarioTransporteController();
+        TrayectoController trayectoController = new TrayectoController();
+        
+        double respuesta = 0.0;
+        
+        if(isViajeConTrayectoAereo(viajeId)){
+            List<ItinerarioTransporte> itinerarios = itinerarioTransporteController.getItinerariosTransporteByViajeId(viajeId);
+            for(ItinerarioTransporte a : itinerarios){
+                respuesta+= trayectoController.getTrayectoById(a.getTrayectoId()).getCosto();
+            }
+        }
+        
+        return respuesta;
+    }
+    
 }

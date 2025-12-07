@@ -90,6 +90,7 @@ public class TrayectoController {
     }
   
     public List<ServicioTransporte> getServiciosTransportePorIdTrayecto(Integer trayectoId){
+        ServicioTransporteController servicioTransporteController = new ServicioTransporteController();
         List<ServicioTransporte> servicios = servicioTransporteController.getAllServiciosTransporte();
         if(servicios==null)return new ArrayList<>();
         
@@ -167,4 +168,7 @@ public class TrayectoController {
         }
         return respuesta;
     }
+    
+    //Método E 
+
 }

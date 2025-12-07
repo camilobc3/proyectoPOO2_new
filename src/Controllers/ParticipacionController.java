@@ -4,6 +4,7 @@ import Models.*;
 import DataAccess.ParticipacionRepository;
 import DataAccess.ViajeRepository;
 import DataAccess.ClienteRepository;
+import Utils.filtrarListaPorId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -143,6 +144,21 @@ public class ParticipacionController {
         if (clienteId == null) return null;
 
         return clienteRepository.findClienteById(clienteId);
+    }
+    
+    //Método D
+    public double sumatoriaTrayectoresAreosParticipacion(Integer participacionId){
+        ViajeController viajeController = new ViajeController();
+        Participacion participacion = getParticipacionById(participacionId);
+        double respuesta = 0.0;
+        respuesta = viajeController.sumatoriaTrayectosAereos(participacion.getViajeId());
+        return respuesta;
+    }
+    
+    public List<Participacion> participacionesByClienteId(Integer clienteId){
+        List<Participacion> participaciones = getAllParticipaciones();
+        List<Participacion> respuesta = filtrarListaPorId.filtrar(participaciones, a -> a.getClienteId().equals(clienteId));
+        return respuesta;
     }
 
 }

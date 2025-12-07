@@ -95,6 +95,7 @@ public class ClienteController {
     }
     
     public List<Participacion> getParticipacionesDeCliente(Integer clienteId){
+        ParticipacionController participacionController = new ParticipacionController();
         List<Participacion> participaciones = participacionController.getAllParticipaciones();
         if(participaciones==null)return new ArrayList<>();
         
@@ -226,5 +227,17 @@ public class ClienteController {
         if (misParticipaciones == null) return false;
 
         return misParticipaciones.size() > 1;
+    }
+    
+    //Método D
+    public double totalCostoViajeTrayecto(Integer clienteId){   
+        ParticipacionController participacionController = new ParticipacionController();
+        double respuesta = 0.0;
+
+        List<Participacion> participaciones = participacionController.participacionesByClienteId(clienteId);
+        for(Participacion a : participaciones){
+            respuesta+= participacionController.sumatoriaTrayectoresAreosParticipacion(a.getId());
+        }
+        return respuesta;
     }
 }
