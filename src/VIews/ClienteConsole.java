@@ -1,8 +1,10 @@
 package VIews;
 
 import Controllers.ClienteController;
-import VIews.*;
+import Controllers.ParticipacionController;
+import Controllers.ViajeController;
 import Models.Cliente;
+import Models.Participacion;
 import java.util.List;
 import java.util.Scanner;
 
@@ -29,7 +31,8 @@ public class ClienteConsole {
             System.out.println("5. Promedio de trayectos por viaje para clientes que han realizado más de un viaje.");
             System.out.println("6. Conteo de clientes que han utilizado una aerolínea específica y han realizado al menos una actividad en un municipio específico.");
             System.out.println("7. Total costo viaje trayecto por cliente");
-            System.out.println("8. Volver al menú principal");
+            System.out.println("8. Promedio de actividades por plan para viajes con trayecto aéreo y terrestre");
+            System.out.println("9. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
 
             int choice = readIntInput();
@@ -57,6 +60,9 @@ public class ClienteConsole {
                     totalCostoViajeTrayecto();
                     break;
                 case 8:
+                    promedioActividadesAereoTerrestrePorCliente();
+                    break;
+                case 9:
                     return;
                 default:
                     System.out.println("Opción inválida. Por favor intente nuevamente.");
@@ -181,6 +187,43 @@ public class ClienteConsole {
         double total = clienteController.totalCostoViajeTrayecto(id);
         System.out.println("Cliente: " + cliente.getNombre());
         System.out.println("Total costo: " + total);
+    }
+
+    private void promedioActividadesAereoTerrestrePorCliente(){
+        System.out.println("\n--- PROMEDIO DE ACTIVIDADES POR PLAN (VIAJES CON TRAYECTO AÉREO Y TERRESTRE) ---");
+        System.out.print("Ingrese el ID del cliente: ");
+        int id = readIntInput();
+
+        Cliente cliente = clienteController.getClienteById(id);
+        if (cliente == null) {
+            System.out.println("Cliente no encontrado.");
+            return;
+        }
+
+        ParticipacionController participacionController = new ParticipacionController();
+        ViajeController viajeController = new ViajeController();
+
+        List<Participacion> participaciones = participacionController.participacionesByClienteId(id);
+        if (participaciones == null || participaciones.isEmpty()) {
+            System.out.println("El cliente no tiene participaciones.");
+            return;
+        }
+
+        boolean encontrado = false;
+        for (Participacion participacion : participaciones) {
+            List<Double> promedios = viajeController.promedioActividadesViajesQueTienenTrayectoAereoTerrestre(participacion.getViajeId());
+            if (promedios != null && !promedios.isEmpty()) {
+                encontrado = true;
+                System.out.println("Viaje ID: " + participacion.getViajeId());
+                for (Double promedio : promedios) {
+                    System.out.println("Promedio actividades por plan: " + promedio);
+                }
+            }
+        }
+
+        if (!encontrado) {
+            System.out.println("No hay viajes con trayecto aéreo y terrestre para este cliente.");
+        }
     }
 }
 

@@ -278,18 +278,19 @@ public class ViajeController {
         }
         return respuesta;
     }
-//    
-//    public List<Double> promedioActividadesViajesQueTienenTrayectoAereoTerrestre(){
-//        ItinerarioTransporteController itinerarioTransporteController = new ItinerarioTransporteController();
-//        PlanController planController = new PlanController();
-//        List<Double> respuesta = new ArrayList<>();
-//        List<Viaje> viajes = getAllViajes();
-//        for(Viaje a : viajes){
-//            if(esViajeConTrayectoTerrestre(a.getId()) && isViajeConTrayectoAereo(a.getId())){
-//                respuesta.add(planController.promedioActividadesComponentesPorPlanDePaqueteContratado(a.))
-//            }
-//        }
-//    }
+    
+    public List<Double> promedioActividadesViajesQueTienenTrayectoAereoTerrestre(Integer viajeId){
+        PaqueteContratadoController paqueteContratadoController = new PaqueteContratadoController();
+        PlanController planController = new PlanController();
+        List<Double> respuesta = new ArrayList<>();
+        if(esViajeConTrayectoTerrestre(viajeId)&&isViajeConTrayectoAereo(viajeId)){
+            List<PaqueteContratado> paquetesViaje = paqueteContratadoController.getPaquetesContratadosByViajeId(viajeId);
+            for(PaqueteContratado a : paquetesViaje){
+                respuesta.add(planController.promedioActividadesComponentesPorPlanDePaqueteContratado(a.getId()));
+            }
+        }
+        return respuesta;
+    }
     
     //Método D
     public double sumatoriaTrayectosAereos(Integer viajeId){
@@ -307,5 +308,6 @@ public class ViajeController {
         
         return respuesta;
     }
+    
     
 }
