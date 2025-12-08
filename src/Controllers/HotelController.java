@@ -101,5 +101,42 @@ public class HotelController {
         
         return respuesta;
     }
+    
+    //Método A
+    public Hotel hotelConMenosHabitaciones(){
+        HabitacionController habitacionController = new HabitacionController();
+        Hotel respuesta = null;
+        List<Hotel> hoteles = getAllHoteles();
+        int menor = Integer.MAX_VALUE;
+        
+        for(Hotel a : hoteles){
+            List<Habitacion> habitaciones = habitacionController.getHabitacionesByhotelId(a.getId());
+            if(habitaciones.size()<menor){
+                respuesta = a;
+                menor = habitaciones.size();
+            }
+        }
+        return respuesta;
+    }
+    
+    public boolean usoDeCarroPorHotelConMenosHabitaciones(Integer hotelId){
+        CarroController carroController = new CarroController();
+        ServicioTransporteController servicioTransporteController = new ServicioTransporteController();
+        boolean respuesta = false;
+        List<Carro> carros = carroController.carrosByhotelId(hotelId);
+        for(Carro a : carros){
+            List<ServicioTransporte> servicioTransportes = servicioTransporteController.getServiciosTransporteByCarroId(hotelId);
+            for(ServicioTransporte b : servicioTransportes){
+                if(servicioTransporteController.esTerrestre(b.getId())){
+                    respuesta = true;
+                    break;
+                }
+            }
+            if(respuesta){
+                break;
+            }
+        }
+        return respuesta;
+    }
 }
 

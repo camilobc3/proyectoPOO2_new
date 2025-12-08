@@ -195,6 +195,12 @@ public class ServicioTransporteController {
         List<ServicioTransporte> respuesta = filtrarListaPorId.filtrar(servicios, a -> a.getVehiculoId().equals(aeronaveId));
         return respuesta;
     }
+
+    public List<ServicioTransporte> getServiciosTransporteByCarroId(Integer carroId){
+        List<ServicioTransporte> servicios = getAllServiciosTransporte();
+        List<ServicioTransporte> respuesta = filtrarListaPorId.filtrar(servicios, a -> a.getVehiculoId().equals(carroId));
+        return respuesta;
+    }
     
     public Trayecto trayectoMenorValorPorAeronave(Integer AeronaveId){
         TrayectoController trayectoController = new TrayectoController();

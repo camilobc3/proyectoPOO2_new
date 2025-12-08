@@ -6,5 +6,6 @@
   { "id": 5, "planId": 1, "actividadTuristicaId": 5 },
   { "id": 6, "planId": 4, "actividadTuristicaId": 6 },
   { "id": 7, "planId": 4, "actividadTuristicaId": 7 },
-  { "id": 8, "planId": 5, "actividadTuristicaId": 8 }
+  { "id": 8, "planId": 5, "actividadTuristicaId": 8 },
+  { "id": 9, "planId": 2, "actividadTuristicaId": 2 }
 ]

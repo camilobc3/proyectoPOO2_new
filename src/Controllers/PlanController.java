@@ -244,4 +244,21 @@ public class PlanController {
         respuesta /= planes.size();
         return respuesta;
     }
+    
+    public boolean planContieneActividad(Integer planId, String nombreActividad){
+        ActividadTuristicaController actividadTuristicaController = new ActividadTuristicaController();
+        
+        boolean respuesta = false;
+        List<ComponentePlan> componentes = getComponentesPlanDelPlan(planId);
+        
+        for(ComponentePlan componente : componentes){
+            ActividadTuristica actividad = actividadTuristicaController.getActividadTuristicaById(componente.getActividadTuristicaId());
+            if(actividad != null && actividad.getNombre().equals(nombreActividad)){
+                respuesta = true;
+                break;
+            }
+        }
+        
+        return respuesta;
+    }
 }

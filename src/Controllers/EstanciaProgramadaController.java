@@ -115,5 +115,22 @@ public class EstanciaProgramadaController {
         List<EstanciaProgramada> respuesta = filtrarListaPorId.filtrar(estancias, a -> a.getHabitacionId().equals(habitacionId));
         return respuesta;
     }
+
+    public List<EstanciaProgramada> getEstanciasByItinerarioTransporteId(Integer itinerarioTransporteId){
+        List<EstanciaProgramada> estancias = getAllEstanciasProgramadas();
+        List<EstanciaProgramada> respuesta = filtrarListaPorId.filtrar(estancias, a -> a.getItinerarioTransporteId().equals(itinerarioTransporteId));
+        return respuesta;
+    }
+    
+    //Método C
+    public boolean estanciaHabitacionHotelMenosHabitacionesUsoDeCarro(Integer estanciaId){
+        HabitacionController habitacionController = new HabitacionController();
+        boolean respuesta = false;
+        EstanciaProgramada estancia = getEstanciaProgramadaById(estanciaId);
+        if(habitacionController.habitacionHotelConAlmenosUnServicioTerrestre(estancia.getHabitacionId())){
+            respuesta = true;
+        }
+        return respuesta;
+    }
 }
 

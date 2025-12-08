@@ -203,5 +203,19 @@ public class ItinerarioTransporteController {
         
         return respuesta;
     }
+    
+    //Método C
+    public boolean ItinerarioConUsoDeVehiculoHotelMenosHabitaciones(Integer itinerarioId){
+        EstanciaProgramadaController estanciaProgramadaController = new EstanciaProgramadaController();
+        boolean respuesta = false;
+        List<EstanciaProgramada> estancias = estanciaProgramadaController.getEstanciasByItinerarioTransporteId(itinerarioId);
+        for(EstanciaProgramada a : estancias){
+            if(estanciaProgramadaController.estanciaHabitacionHotelMenosHabitacionesUsoDeCarro(a.getId())){
+                respuesta = true;
+                break;
+            }
+        }
+        return respuesta;
+    }
 }
 

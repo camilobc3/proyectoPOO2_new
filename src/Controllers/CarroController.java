@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.Carro;
 import DataAccess.CarroRepository;
+import Utils.filtrarListaPorId;
 import java.util.List;
 
 public class CarroController {
@@ -54,6 +55,13 @@ public class CarroController {
     public boolean deleteCarro(Integer id) {
         carroRepository.deleteCarro(id);
         return true;
+    }
+    
+    //Métdodo C
+    public List<Carro> carrosByhotelId(Integer hotelId){
+        List<Carro> carros = getAllCarros();
+        List<Carro> respuesta = filtrarListaPorId.filtrar(carros, a -> a.getHotelId().equals(hotelId));
+        return respuesta;
     }
 }
 

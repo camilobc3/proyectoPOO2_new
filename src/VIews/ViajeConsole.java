@@ -23,7 +23,8 @@ public class ViajeConsole {
             System.out.println("4. Eliminar viaje");
             System.out.println("5. Costo de todos los servicios de transporte por viaje");
             System.out.println("6. Promedio de habitaciones reservadas por hotel en viajes que incluyen al menos un trayecto aéreo y un trayecto terrestre.");
-            System.out.println("7. Volver al menú principal");
+            System.out.println("7. Viajes con actividad específica y uso de vehículo en hotel con menos habitaciones");
+            System.out.println("8. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
 
             int choice = readIntInput();
@@ -48,6 +49,9 @@ public class ViajeConsole {
                     promedioHabitacionesReservadasPorHotelEnViajesConTrayectoAereoYTerrestre();
                     break;
                 case 7:
+                    viajesConActividadYVehiculoEnHotelMenosHabitaciones();
+                    break;
+                case 8:
                     return;
                 default:
                     System.out.println("Opción inválida. Por favor intente nuevamente.");
@@ -136,6 +140,24 @@ public class ViajeConsole {
     private void promedioHabitacionesReservadasPorHotelEnViajesConTrayectoAereoYTerrestre(){
         double respuesta = viajeController.promedioHabitacionesReservadasPorHotelConTrayectoAereoYTerrestre();
         System.out.println("Promedio: "+respuesta);
+    }
+
+    private void viajesConActividadYVehiculoEnHotelMenosHabitaciones(){
+        System.out.println("\n--- VIAJES CON ACTIVIDAD ESPECÍFICA Y USO DE VEHÍCULO EN HOTEL CON MENOS HABITACIONES ---");
+        System.out.print("Ingrese el nombre de la actividad: ");
+        String nombreActividad = scanner.nextLine();
+
+        List<Viaje> viajes = viajeController.viajesQueIncluyenAlmenosUnPlanConUnaActividadEspecifica(nombreActividad);
+        
+        if (viajes == null || viajes.isEmpty()) {
+            System.out.println("No se encontraron viajes con esa actividad.");
+            return;
+        }
+
+        System.out.println("Viajes encontrados:");
+        for (Viaje viaje : viajes) {
+            System.out.println("ID: " + viaje.getId() + " - Nombre: " + viaje.getNombre());
+        }
     }
 }
 

@@ -6,6 +6,7 @@ import Controllers.*;
 import java.util.ArrayList;
 import java.util.List;
 import Utils.*;
+import java.util.AbstractList;
 
 public class ViajeController {
     private ViajeRepository viajeRepository;
@@ -303,6 +304,53 @@ public class ViajeController {
             List<ItinerarioTransporte> itinerarios = itinerarioTransporteController.getItinerariosTransporteByViajeId(viajeId);
             for(ItinerarioTransporte a : itinerarios){
                 respuesta+= trayectoController.getTrayectoById(a.getTrayectoId()).getCosto();
+            }
+        }
+        
+        return respuesta;
+    }
+    
+    //Método C
+    public boolean viajeContieneActividad(Integer viajeId, String nombreActividad){
+        PaqueteContratadoController paqueteContratadoController = new PaqueteContratadoController();
+        PlanController planController = new PlanController();
+        
+        boolean respuesta = false;
+        List<PaqueteContratado> paquetesContratados = paqueteContratadoController.getPaquetesContratadosByViajeId(viajeId);
+        
+        for(PaqueteContratado paquete : paquetesContratados){
+            if(planController.planContieneActividad(paquete.getPlanId(), nombreActividad)){
+                respuesta = true;
+                break;
+            }
+        }
+        
+        return respuesta;
+    }
+    
+    public List<Viaje> viajesQueIncluyenAlmenosUnPlanConUnaActividadEspecifica(String nombreActividad){
+        ItinerarioTransporteController itinerarioTransporteController = new ItinerarioTransporteController();
+        List<Viaje> viajes = getAllViajes();
+        List<Viaje> respuesta = new ArrayList<>();
+        
+        for(Viaje a : viajes){
+            if(viajeContieneActividad(a.getId(), nombreActividad) && viajeItinerarioConUsoDeVehiculoHotelMenosHabitaciones(a.getId())){
+                respuesta.add(a);
+            }
+        }
+        return respuesta;
+    }
+    
+    public boolean viajeItinerarioConUsoDeVehiculoHotelMenosHabitaciones(Integer viajeId){
+        ItinerarioTransporteController itinerarioTransporteController = new ItinerarioTransporteController();
+        
+        boolean respuesta = false;
+        List<ItinerarioTransporte> itinerarios = itinerarioTransporteController.getItinerariosTransporteByViajeId(viajeId);
+        
+        for(ItinerarioTransporte itinerario : itinerarios){
+            if(itinerarioTransporteController.ItinerarioConUsoDeVehiculoHotelMenosHabitaciones(itinerario.getId())){
+                respuesta = true;
+                break;
             }
         }
         

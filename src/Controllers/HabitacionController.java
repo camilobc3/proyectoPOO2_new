@@ -102,5 +102,27 @@ public class HabitacionController {
         List<Habitacion> respuesta = filtrarListaPorId.filtrar(habitaciones, a -> a.getId().equals(hotelId));
         return respuesta;
     }
+    
+    //Método c
+    public boolean habitacionPertenecienteAHotelConMenosHabitaciones(Integer habitacionId){
+        HotelController hotelController = new HotelController();
+        boolean respuesta = false;
+        Hotel hotelMenosHabitaciones = hotelController.hotelConMenosHabitaciones();
+        Habitacion habitacion = getHabitacionById(habitacionId);
+        if(hotelMenosHabitaciones.getId().equals(habitacion.getHotelId())){
+            respuesta = true;
+        }
+        return respuesta;
+    }
+    
+    public boolean habitacionHotelConAlmenosUnServicioTerrestre(Integer habitacionId){
+        HotelController hotelController = new HotelController();
+        Hotel hotelMenosHabitaciones = hotelController.hotelConMenosHabitaciones();
+        boolean respuesta = false;
+        if(habitacionPertenecienteAHotelConMenosHabitaciones(habitacionId) && hotelController.usoDeCarroPorHotelConMenosHabitaciones(hotelMenosHabitaciones.getId())){
+            respuesta = true;
+        }
+        return respuesta;
+    }
 }
 
