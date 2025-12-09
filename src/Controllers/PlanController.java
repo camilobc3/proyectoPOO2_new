@@ -107,6 +107,7 @@ public class PlanController {
     }
     
     public List<PaqueteContratado> getPaquetesContratadosPorPlanId(Integer planId){
+        PaqueteContratadoController paqueteContratadoController = new PaqueteContratadoController();
         List<PaqueteContratado> paquetes = paqueteContratadoController.getAllPaquetesContratados();
         if(paquetes==null)return new ArrayList<>();
         
@@ -117,6 +118,7 @@ public class PlanController {
     }
     
     public boolean isPlanConAlgunTrayectoTerrestre(Integer planId){
+        PaqueteContratadoController paqueteContratadoController = new PaqueteContratadoController();
         if (planId == null) return false;
         
         List<PaqueteContratado> misPaquetes = getPaquetesContratadosPorPlanId(planId);
@@ -130,6 +132,7 @@ public class PlanController {
     }
     
     public List<ActividadTuristica> getActividadesTuristicasByPlanId(Integer planId){
+        ComponentePlanController componentePlanController = new ComponentePlanController();
         if (planId == null) return new ArrayList<>();
 
         List<ComponentePlan> misComponentes = getComponentesPlanDelPlan(planId);
@@ -169,6 +172,7 @@ public class PlanController {
     }
     
     public List<Cliente> getClientesByPlanId(Integer planId){
+        PaqueteContratadoController paqueteContratadoController = new PaqueteContratadoController();
         if (planId == null) return new ArrayList<>();
 
         List<PaqueteContratado> misPaquetes = getPaquetesContratadosPorPlanId(planId);
