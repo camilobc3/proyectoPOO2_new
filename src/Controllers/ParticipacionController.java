@@ -110,27 +110,26 @@ public class ParticipacionController {
     }
 
     public List<Integer> getMunicipiosIdByParticipacionId(Integer participacionId) {
+        ViajeController viajeController = new ViajeController();
         Viaje viaje = getViajeDeParticipacion(participacionId);
         if (viaje == null) return new ArrayList<>();
-        // Usar viajeController si está inyectado; si no, devolver lista vacía (evitar NPE/recursión)
-        if (viajeController == null) return new ArrayList<>();
         return viajeController.getMunicipiosIdByViajeId(viaje.getId());
     }
 
 
     public int numeroTrayectosPorParticipacion(Integer participacionId){  
+        ViajeController viajeController = new ViajeController();
         int resultado = 0;
         Viaje miViaje = getViajeDeParticipacion(participacionId);
         if (miViaje == null) return 0;
-        if (viajeController == null) return 0;
         resultado = viajeController.getNumeroDeItinerariosPorViaje(miViaje.getId());
         return resultado;
     }
 
     public List<Integer> getAerolineasIdByParticipacionId(Integer participacionId){
+        ViajeController viajeController = new ViajeController();
         Viaje miViaje = getViajeDeParticipacion(participacionId);
         if(miViaje==null) return new ArrayList<>();
-        if (viajeController == null) return new ArrayList<>();
         return viajeController.getAerolineasByViajeId(miViaje.getId());
     }
 
