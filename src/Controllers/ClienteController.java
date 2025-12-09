@@ -106,6 +106,7 @@ public class ClienteController {
     }
     
     public double TrayectosPorViaje(Integer clienteId){   
+        ParticipacionController participacionController = new ParticipacionController();
         if (clienteId == null) return 0.0;
 
         double resultado = 0.0;
@@ -128,6 +129,7 @@ public class ClienteController {
         double sumaTotalTrayectos = 0.0;
         int totalViajes = 0;  // Solo viajes de clientes con >1 viaje
         int clientesConMasDeUnViaje = 0;
+        ParticipacionController participacionController = new ParticipacionController();
 
         List<Cliente> clientes = getAllClientes();
 
@@ -156,6 +158,7 @@ public class ClienteController {
     
     public List<Integer> getAerolineasIdByClienteId(Integer clienteId){  
         if (clienteId == null) return new ArrayList<>();
+        ParticipacionController participacionController = new ParticipacionController();
 
         List<Participacion> misParticipaciones = getParticipacionesDeCliente(clienteId);
         if (misParticipaciones == null || misParticipaciones.isEmpty()) return new ArrayList<>();
@@ -200,6 +203,7 @@ public class ClienteController {
     
     public List<Integer> getMunicipiosIdByClienteId(Integer clienteId){
         if (clienteId == null) return new ArrayList<>();
+        ParticipacionController participacionController = new ParticipacionController();
 
         List<Participacion> misParticipaciones = getParticipacionesDeCliente(clienteId);
         if (misParticipaciones == null || misParticipaciones.isEmpty()) return new ArrayList<>();
