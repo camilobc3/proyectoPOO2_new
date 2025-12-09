@@ -101,6 +101,7 @@ public class TrayectoController {
     }
 
     public boolean isTrayectoConAlgunServicioTerrestre(Integer trayectoId){
+        ServicioTransporteController servicioTransporteController = new ServicioTransporteController();
         List<ServicioTransporte> misServiciosTransporte = getServiciosTransportePorIdTrayecto(trayectoId);
         for(ServicioTransporte actual : misServiciosTransporte){
 
@@ -113,6 +114,7 @@ public class TrayectoController {
     }
 
     public List<Integer> getAerolineasIdByTrayectoId(Integer trayectoId){
+        ServicioTransporteController servicioTransporteController = new ServicioTransporteController();
         List<ServicioTransporte> misServicios = getServiciosTransportePorIdTrayecto(trayectoId);
         List<Integer> respuesta = new ArrayList<>();
 
