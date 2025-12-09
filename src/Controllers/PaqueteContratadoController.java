@@ -106,6 +106,7 @@ public class PaqueteContratadoController {
     }
     
     public boolean isPaqueteConAlgunTerrestre(Integer paqueteId){ 
+        ViajeController viajeController = new ViajeController();
         // 1. Buscar el paquete
         PaqueteContratado paqueteContratado = paqueteContratadoRepository.findPaqueteContratadoById(paqueteId);
         if(paqueteContratado == null) return false; // Si no existe el paquete → no hay terrestres
@@ -119,6 +120,7 @@ public class PaqueteContratadoController {
     }
     
     public List<Cliente> getClientesByPaqueteId(Integer paqueteId){
+        ViajeController viajeController = new ViajeController();
         PaqueteContratado paqueteContratado = paqueteContratadoRepository.findPaqueteContratadoById(paqueteId);
         if(paqueteContratado == null) return new ArrayList<>();
 
