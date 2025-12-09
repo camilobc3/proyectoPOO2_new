@@ -78,6 +78,7 @@ public class ViajeController {
     }
    
     public List<ItinerarioTransporte> getItinerariosDeViaje(Integer viajeId){
+        ItinerarioTransporteController itinerarioTransporteController = new ItinerarioTransporteController();
         List<ItinerarioTransporte> itinerarios = itinerarioTransporteController.getAllItinerariosTransporte();
         if(itinerarios==null)return new ArrayList<>();
         
@@ -110,6 +111,7 @@ public class ViajeController {
     }
 
     public boolean isViajeConTrayectoTerrestre(Integer viajeId){
+        ItinerarioTransporteController itinerarioTransporteController = new ItinerarioTransporteController();
         List<ItinerarioTransporte> misItinerarios = getItinerariosDeViaje(viajeId);
         for(ItinerarioTransporte actual : misItinerarios){
             if(itinerarioTransporteController.isItinerarioConAlgunTrayectoTerrestre(actual.getId())){
@@ -120,6 +122,7 @@ public class ViajeController {
     }
 
     public List<Integer> getAerolineasByViajeId(Integer viajeId){
+        ItinerarioTransporteController itinerarioTransporteController = new ItinerarioTransporteController();
         List<ItinerarioTransporte> misItinerarios = getItinerariosDeViaje(viajeId);
         if (misItinerarios == null) return new ArrayList<>();
 
@@ -134,6 +137,7 @@ public class ViajeController {
     }
 
     public double getCostosServiciosByViajeId(Integer viajeId){
+        ItinerarioTransporteController itinerarioTransporteController = new ItinerarioTransporteController();
         List<ItinerarioTransporte> misItinerarios = getItinerariosDeViaje(viajeId);
         if(misItinerarios==null) return 0.0;
         double respuesta = 0.0;
@@ -144,12 +148,14 @@ public class ViajeController {
     }
 
     public List<Participacion> getParticipacionesByViajeId(Integer viajeId){
+        ParticipacionController participacionController = new ParticipacionController();
         List<Participacion> participaciones = participacionController.getAllParticipaciones();
         List<Participacion> result = filtrarListaPorId.filtrar(participaciones, a -> a.getViajeId().equals(viajeId));
         return result;
     }
 
     public List<Cliente> getClientesByViajeId(Integer viajeId) {
+        ParticipacionController participacionController = new ParticipacionController();
         List<Participacion> participaciones = getParticipacionesByViajeId(viajeId);
         List<Cliente> resultado = new ArrayList<>();
         List<Integer> idsAgregados = new ArrayList<>();
@@ -175,6 +181,7 @@ public class ViajeController {
     }
     
     public List<Habitacion> getHabitacionesByViajeId(Integer viajeId){
+        ItinerarioTransporteController itinerarioTransporteController = new ItinerarioTransporteController();
         List<ItinerarioTransporte> misItinerarios = getItinerariosDeViaje(viajeId);
         if(misItinerarios == null) return new ArrayList<>();
         List<Habitacion> result = new ArrayList<>();
