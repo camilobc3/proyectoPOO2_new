@@ -119,6 +119,7 @@ public class ItinerarioTransporteController {
     }
 
     public List<Integer> getAerolineasByItinerarioId(Integer itinerarioId){
+        TrayectoController trayectoController = new TrayectoController();
         Trayecto miTrayecto = getMiTrayecto(itinerarioId);
         // Validación importante
         if (miTrayecto == null) return new ArrayList<>();
@@ -132,12 +133,14 @@ public class ItinerarioTransporteController {
     }
     
     public double getCostosTrayectosByItinerarioId(Integer itinerarioId){
+        TrayectoController trayectoController = new TrayectoController();
         Trayecto miTrayecto = getMiTrayecto(itinerarioId);
         if(miTrayecto==null) return 0.0;
         return trayectoController.getCostoTrayectoByTrayectoId(miTrayecto.getId());
     }
     
     public List<EstanciaProgramada> getEstanciasByItinerarioId(Integer itinerarioId){
+        EstanciaProgramadaController estanciaProgramadaController = new EstanciaProgramadaController();
         List<EstanciaProgramada> estancias = estanciaProgramadaController.getAllEstanciasProgramadas();
         if(estancias==null)return new ArrayList<>();
         
@@ -148,6 +151,7 @@ public class ItinerarioTransporteController {
     }
     
     public List<Habitacion> getHabitacionesByItinerarioId(Integer itinerarioId){
+        EstanciaProgramadaController estanciaProgramadaController = new EstanciaProgramadaController();
         List<EstanciaProgramada> misEstancias = getEstanciasByItinerarioId(itinerarioId);
         if(misEstancias==null)return new ArrayList<>();
         
